@@ -116,17 +116,31 @@
     .intro-inner {
       display: grid;
       justify-items: center;
-      gap: 22px;
+      gap: 18px;
       text-align: center;
     }
 
     .intro-book {
       position: relative;
-      width: min(250px, 62vw);
+      width: clamp(330px, 30vw, 470px);
       aspect-ratio: 0.72;
       transform-style: preserve-3d;
-      perspective: 1200px;
-      animation: bookZoom 3000ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+      perspective: 1700px;
+      transform: translateY(48px) scale(0.74) rotateX(14deg) rotateZ(-4deg);
+    }
+
+    .intro.is-playing .intro-book {
+      animation: bookZoom 3300ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+    }
+
+    .intro-book::before {
+      content: "";
+      position: absolute;
+      inset: 12px -18px -18px 22px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.36);
+      filter: blur(18px);
+      transform: translate3d(0, 28px, -70px);
     }
 
     .intro-pages,
@@ -135,32 +149,65 @@
     .intro-spine {
       position: absolute;
       inset: 0;
-      border-radius: 5px;
+      border-radius: 8px;
       box-shadow: 0 24px 50px rgba(0, 0, 0, 0.32);
     }
 
     .intro-back {
       background: linear-gradient(135deg, #401b1f, #8b2c30 48%, #281418);
-      transform: translate3d(-12px, 10px, -18px);
+      transform: translate3d(-18px, 12px, -34px);
     }
 
     .intro-pages {
-      inset: 16px 10px 14px 28px;
+      inset: 16px 12px 14px 30px;
       background:
-        repeating-linear-gradient(180deg, #fff2d1 0 5px, #e3c99c 5px 7px);
-      transform: translate3d(8px, 8px, -8px);
+        linear-gradient(90deg, rgba(95, 56, 28, 0.22), transparent 9%, transparent 91%, rgba(95, 56, 28, 0.1)),
+        repeating-linear-gradient(180deg, #fff3d4 0 6px, #e4c99c 6px 8px);
+      transform: translate3d(12px, 8px, -10px);
+    }
+
+    .intro-pages::before {
+      content: "";
+      position: absolute;
+      inset: 18px 22px;
+      border-left: 1px solid rgba(108, 74, 39, 0.22);
+      border-right: 1px solid rgba(108, 74, 39, 0.1);
+      background:
+        linear-gradient(90deg, rgba(80, 49, 30, 0.11), transparent 12%, transparent 88%, rgba(80, 49, 30, 0.08)),
+        repeating-linear-gradient(180deg, transparent 0 26px, rgba(96, 70, 43, 0.16) 26px 27px);
+      opacity: 0;
+      animation: pageReveal 3300ms ease forwards;
+    }
+
+    .intro:not(.is-playing) .intro-pages::before {
+      animation: none;
     }
 
     .intro-cover {
       display: grid;
       place-items: center;
-      padding: 22px;
+      padding: 30px;
       background:
         linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 36%),
         linear-gradient(135deg, #a13a3d, #5d2025 64%, #2b1518);
       border: 2px solid rgba(255, 231, 176, 0.38);
       transform-origin: left center;
-      animation: coverOpen 3000ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transform: translateZ(24px) rotateY(0deg);
+    }
+
+    .intro.is-playing .intro-cover {
+      animation: coverOpen 3300ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+    }
+
+    .intro-cover::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255, 238, 191, 0.42);
+      border-radius: 5px;
+      pointer-events: none;
     }
 
     .intro-cover span {
@@ -170,16 +217,18 @@
       border: 1px solid rgba(255, 238, 191, 0.52);
       color: #ffe9b6;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.5rem, 7vw, 2.7rem);
+      font-size: clamp(2rem, 5vw, 3.4rem);
       letter-spacing: 0;
       text-transform: uppercase;
+      transform: translateZ(18px);
     }
 
     .intro-spine {
-      width: 30px;
+      width: 38px;
       right: auto;
       background: linear-gradient(90deg, rgba(0, 0, 0, 0.38), rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.24));
-      transform: translateX(-14px);
+      transform: translateX(-18px) translateZ(24px);
+      box-shadow: 12px 0 24px rgba(0, 0, 0, 0.26);
     }
 
     .intro-title {
@@ -202,15 +251,21 @@
     }
 
     @keyframes bookZoom {
-      0% { transform: translateY(52px) scale(0.58) rotateX(12deg) rotateZ(-4deg); }
-      28% { transform: translateY(0) scale(0.96) rotateX(0) rotateZ(0); }
-      64% { transform: translateY(-10px) scale(1.16) rotateX(0) rotateZ(0); }
-      100% { transform: translateY(-18px) scale(1.28) rotateX(0) rotateZ(0); }
+      0% { transform: translateY(48px) scale(0.74) rotateX(14deg) rotateZ(-4deg); }
+      30% { transform: translateY(0) scale(1) rotateX(0) rotateZ(0); }
+      68% { transform: translateY(-4px) scale(1.08) rotateX(0) rotateZ(0); }
+      100% { transform: translateY(-12px) scale(1.12) rotateX(0) rotateZ(0); }
     }
 
     @keyframes coverOpen {
-      0%, 34% { transform: rotateY(0deg); }
-      100% { transform: rotateY(-148deg); }
+      0%, 30% { transform: translateZ(24px) rotateY(0deg); }
+      64% { transform: translateZ(24px) rotateY(-82deg); }
+      100% { transform: translateZ(24px) rotateY(-132deg); }
+    }
+
+    @keyframes pageReveal {
+      0%, 38% { opacity: 0; transform: translateX(8px); }
+      68%, 100% { opacity: 1; transform: translateX(0); }
     }
 
     .app {
@@ -969,6 +1024,17 @@
         scroll-behavior: auto !important;
         transition-duration: 1ms !important;
       }
+
+      .intro,
+      .app {
+        transition-duration: 680ms !important;
+      }
+
+      .intro.is-playing .intro-book,
+      .intro.is-playing .intro-cover,
+      .intro.is-playing .intro-pages::before {
+        animation-duration: 3300ms !important;
+      }
     }
   </style>
 </head>
@@ -1385,6 +1451,13 @@
         intro.classList.add("is-done");
       };
 
+      const playIntro = () => {
+        window.requestAnimationFrame(() => {
+          window.setTimeout(() => intro.classList.add("is-playing"), 120);
+        });
+        window.setTimeout(hideIntro, 4000);
+      };
+
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => showSpread(Number(tab.dataset.spread)));
       });
@@ -1408,9 +1481,9 @@
       });
 
       document.getElementById("skipIntro").addEventListener("click", hideIntro);
-      window.setTimeout(hideIntro, 3300);
 
       showSpread(0);
+      playIntro();
     })();
   </script>
 </body>
