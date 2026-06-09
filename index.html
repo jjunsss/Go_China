@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>중국 여행 준비 체크리스트 | 2026.07.11-07.19</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2933;
+      --muted: #697586;
+      --line: #d9e2ec;
+      --paper: #fffdf7;
+      --wash: #f4f7fb;
+      --mint: #dff5ee;
+      --mint-ink: #0f6f5c;
+      --coral: #ffe3d8;
+      --coral-ink: #9d3d1a;
+      --gold: #fff0ba;
+      --gold-ink: #806000;
+      --blue: #e2efff;
+      --blue-ink: #1e5b9a;
+      --shadow: 0 18px 45px rgba(31, 41, 51, 0.08);
+      font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 253, 247, 0.96), rgba(244, 247, 251, 0.98)),
+        repeating-linear-gradient(90deg, rgba(31, 41, 51, 0.025) 0 1px, transparent 1px 70px);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a {
+      color: #185ca8;
+      text-underline-offset: 3px;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .hero, .flight-card, .panel, .check-card, .source-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(217, 226, 236, 0.92);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 260px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 5px;
+      background: linear-gradient(90deg, #e84c3d, #f0b429, #2f9e7f, #2f80ed);
+    }
+
+    .eyebrow {
+      color: var(--coral-ink);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+
+    h1 {
+      font-size: clamp(2.05rem, 4vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero p {
+      max-width: 780px;
+      color: var(--muted);
+      margin: 18px 0 0;
+      font-size: 1rem;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 750;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .pill.mint { background: var(--mint); color: var(--mint-ink); border-color: #b8e3d6; }
+    .pill.coral { background: var(--coral); color: var(--coral-ink); border-color: #ffc6b4; }
+    .pill.gold { background: var(--gold); color: var(--gold-ink); border-color: #efd77d; }
+    .pill.blue { background: var(--blue); color: var(--blue-ink); border-color: #b8d7ff; }
+
+    .flight-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .flight-card {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .flight-card h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .airport strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .airport span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .arrow {
+      width: 42px;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      border-right: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+      transform: rotate(45deg);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .meta span {
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .progress {
+      flex: 1 1 340px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .bar {
+      height: 12px;
+      border-radius: 999px;
+      background: #e8eef5;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .bar > span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #2f9e7f, #2f80ed);
+      transition: width 180ms ease;
+    }
+
+    button {
+      border: 1px solid #bfd0e0;
+      background: #ffffff;
+      color: var(--ink);
+      border-radius: 6px;
+      min-height: 38px;
+      padding: 8px 12px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f2f6fb;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    h2.section-title {
+      font-size: 1.26rem;
+      margin: 0 0 12px;
+    }
+
+    h3 {
+      font-size: 1.02rem;
+      margin: 20px 0 10px;
+    }
+
+    .note {
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-left: 5px solid #2f80ed;
+      border-radius: 8px;
+      padding: 13px 14px;
+      color: #344054;
+      margin: 12px 0;
+    }
+
+    .note.warning {
+      background: #fff8ee;
+      border-left-color: #f0b429;
+    }
+
+    .note.danger {
+      background: #fff3ef;
+      border-left-color: #e84c3d;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .time-item {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 12px;
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .time-item:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .time-item .date {
+      font-weight: 850;
+      color: var(--blue-ink);
+    }
+
+    .time-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .time-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .check-card {
+      padding: 18px;
+    }
+
+    .check-card h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--wash);
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 9px 0;
+      border-top: 1px solid rgba(217, 226, 236, 0.72);
+    }
+
+    .item:first-of-type {
+      border-top: 0;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 3px 0 0;
+      accent-color: #2f9e7f;
+    }
+
+    label strong {
+      display: block;
+      font-size: 0.96rem;
+    }
+
+    label span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 2px;
+    }
+
+    input[type="checkbox"]:checked + label strong,
+    input[type="checkbox"]:checked + label span {
+      text-decoration: line-through;
+      opacity: 0.62;
+    }
+
+    .compact-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .compact-list li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .compact-list li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #2f9e7f;
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+    }
+
+    .two-col {
+      columns: 2 260px;
+      column-gap: 32px;
+    }
+
+    .source-card {
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .sources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 18px;
+      padding-left: 18px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      header, .grid, .check-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100% - 20px, 1180px);
+        padding-top: 18px;
+      }
+
+      .hero, .panel, .check-card, .source-card, .flight-card {
+        padding: 16px;
+      }
+
+      .route {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        width: 1px;
+        height: 28px;
+        margin-left: 10px;
+      }
+
+      .arrow::after {
+        right: -4px;
+        top: auto;
+        bottom: 0;
+        transform: rotate(135deg);
+      }
+
+      .meta, .sources {
+        grid-template-columns: 1fr;
+      }
+
+      .time-item {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero, .flight-card, .panel, .check-card, .source-card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      button, .toolbar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <section class="hero" aria-labelledby="title">
+        <div>
+          <p class="eyebrow">China Trip Prep Board</p>
+          <h1 id="title">서울-청두-충칭 여행 준비</h1>
+          <p>2026년 7월 11일 출국, 7월 19일 귀국. 중국은 결제, 통신, 숙박 등록, 통관에서 작은 준비 차이가 크게 나므로 “출발 전에 끝낼 일” 위주로 정리했다.</p>
+        </div>
+        <div class="status-row" aria-label="핵심 상태">
+          <span class="pill mint">한국 일반여권: 30일 무비자 범위</span>
+          <span class="pill blue">현지시간 기준 항공 일정</span>
+          <span class="pill gold">결제 앱 사전 인증 필수</span>
+          <span class="pill coral">자료 확인일: 2026-06-09</span>
+        </div>
+      </section>
+
+      <aside class="flight-stack" aria-label="항공편 요약">
+        <article class="flight-card">
+          <h2>1. 서울 → 청두 | 2026-07-11</h2>
+          <div class="route">
+            <div class="airport"><strong>14:50 ICN T1</strong><span>인천국제공항</span></div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="airport"><strong>17:40 TFU T1</strong><span>청두 톈푸 국제공항</span></div>
+          </div>
+          <div class="meta">
+            <span>쓰촨항공 3U3974</span>
+            <span>일반석 · A321 · 스낵</span>
+          </div>
+        </article>
+        <article class="flight-card">
+          <h2>2. 충칭 → 서울 | 2026-07-19</h2>
+          <div class="route">
+            <div class="airport"><strong>02:15 CKG T3</strong><span>충칭 장베이 국제공항</span></div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="airport"><strong>06:35 ICN T2</strong><span>인천국제공항</span></div>
+          </div>
+          <div class="meta">
+            <span>아시아나항공 OZ354</span>
+            <span>일반석 T · A321neo · 기내식</span>
+          </div>
+        </article>
+      </aside>
+    </header>
+
+    <section class="toolbar" aria-label="진행률">
+      <div class="progress">
+        <div class="progress-label">
+          <strong>준비 진행률</strong>
+          <span id="progressText">0 / 0 완료</span>
+        </div>
+        <div class="bar" aria-hidden="true"><span id="progressBar"></span></div>
+      </div>
+      <button type="button" id="resetBtn">체크 초기화</button>
+    </section>
+
+    <section class="grid">
+      <div>
+        <section class="panel">
+          <h2 class="section-title">먼저 끝낼 일</h2>
+          <div class="timeline">
+            <div class="time-item">
+              <div class="date">6/11</div>
+              <div><strong>D-30</strong><p>여권 유효기간, 숙소, 여행자보험, 결제 앱 인증을 먼저 완료. 일반여권 무비자는 여행 목적과 30일 범위를 벗어나지 않는다는 전제다.</p></div>
+            </div>
+            <div class="time-item">
+              <div class="date">6/20</div>
+              <div><strong>D-21</strong><p>복용약 성분, 처방전, 진단서 준비. 감기약·수면제·ADHD 치료제·진정제처럼 규제 성분 가능성이 있는 약은 성분명 기준으로 확인한다.</p></div>
+            </div>
+            <div class="time-item">
+              <div class="date">6/27</div>
+              <div><strong>D-14</strong><p>Alipay, WeChat, Amap, DiDi, 번역 앱, 항공사 앱을 설치하고 카드 결제 테스트. 앱 업데이트는 중국 도착 전에 끝낸다.</p></div>
+            </div>
+            <div class="time-item">
+              <div class="date">7/04</div>
+              <div><strong>D-7</strong><p>로밍/eSIM, 오프라인 지도, 숙소 주소 중국어 표기, 긴급 연락처를 휴대폰과 종이에 모두 저장한다.</p></div>
+            </div>
+            <div class="time-item">
+              <div class="date">7/10</div>
+              <div><strong>D-1</strong><p>보조배터리는 기내 가방으로 이동, 액체류는 100ml 이하로 정리, 여권·카드·현금·처방약은 몸에 지니는 가방에 넣는다.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2 class="section-title">중국 특이사항</h2>
+          <div class="note">
+            <strong>무비자:</strong> 주한 중국대사관 공지 기준, 한국 등 45개국 일반여권 소지자는 2026년 12월 31일 24시까지 관광·상용·친지방문·교류·경유 목적 30일 이내 체류 시 비자 없이 입국 가능하다. 7월 11일 입국 후 7월 19일 출국은 범위 안이다.
+          </div>
+          <div class="note warning">
+            <strong>숙박 등록:</strong> 호텔은 체크인 시 여권으로 숙박 등록을 처리한다. 호텔이 아닌 곳에 묵으면 도착 후 24시간 내 현지 공안 등록이 필요하므로, 숙소 예약 시 외국인 투숙 가능 여부를 확인한다.
+          </div>
+          <div class="note danger">
+            <strong>통신:</strong> 중국 본토 일반 인터넷에서는 Google, YouTube, Instagram, WhatsApp 등이 접속 불가 또는 불안정할 수 있다. 한국 로밍 또는 여행 eSIM, 오프라인 지도·번역 자료를 출발 전에 준비한다.
+          </div>
+          <ul class="compact-list">
+            <li>외국인은 여권이 사실상 신분증이다. 기차, 호텔, 관광지, 경찰 확인에 대비해 원본과 사본을 분리 보관한다.</li>
+            <li>중국 내 QR 결제 의존도가 높다. Alipay를 1순위, WeChat Pay를 2순위, RMB 현금을 백업으로 둔다.</li>
+            <li>보조배터리와 예비 리튬배터리는 위탁수하물에 넣지 않는다. 중국 국내선을 추가로 탈 경우 3C/CCC 표시가 선명한 제품을 준비한다.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div>
+        <section class="check-grid" aria-label="체크리스트">
+          <article class="check-card">
+            <h3>서류·입국 <span class="tag">최우선</span></h3>
+            <div class="item"><input id="doc-passport" type="checkbox"><label for="doc-passport"><strong>일반여권 원본</strong><span>체류기간 이상 유효해야 하며, 항공사·숙소 확인용으로 6개월 이상 여유 권장.</span></label></div>
+            <div class="item"><input id="doc-copies" type="checkbox"><label for="doc-copies"><strong>여권 사본 2부 + 휴대폰 저장본</strong><span>Google Drive만 믿지 말고 사진첩/파일 앱/종이로 분산 보관.</span></label></div>
+            <div class="item"><input id="doc-flight" type="checkbox"><label for="doc-flight"><strong>왕복 항공권 확인서</strong><span>입국 목적 증빙으로 바로 보여줄 수 있게 PDF 저장.</span></label></div>
+            <div class="item"><input id="doc-hotel" type="checkbox"><label for="doc-hotel"><strong>숙소 예약 확인서</strong><span>호텔명, 주소, 전화번호를 중국어 표기로 저장.</span></label></div>
+            <div class="item"><input id="doc-insurance" type="checkbox"><label for="doc-insurance"><strong>여행자보험 증서</strong><span>응급실, 항공 지연, 휴대품 보장 범위 확인.</span></label></div>
+          </article>
+
+          <article class="check-card">
+            <h3>결제·돈 <span class="tag">중국 핵심</span></h3>
+            <div class="item"><input id="pay-alipay" type="checkbox"><label for="pay-alipay"><strong>Alipay 설치·카드 등록</strong><span>국제카드 등록, 여권 실명 인증, 6자리 결제 비밀번호까지 완료.</span></label></div>
+            <div class="item"><input id="pay-wechat" type="checkbox"><label for="pay-wechat"><strong>WeChat + WeChat Pay 준비</strong><span>연락·미니프로그램·택시 호출용. 카드 등록 실패에 대비해 Alipay도 유지.</span></label></div>
+            <div class="item"><input id="pay-korea" type="checkbox"><label for="pay-korea"><strong>Kakao Pay/Naver Pay/Toss Pay 해외결제 확인</strong><span>Alipay+ 로고가 있는 중국 매장에서 지원될 수 있으나, 모든 장소 보장 아님.</span></label></div>
+            <div class="item"><input id="pay-toss" type="checkbox"><label for="pay-toss"><strong>Toss Pay 해외 QR 동선 확인</strong><span>토스 앱의 토스페이/현장결제 해외 탭에서 QR·바코드 결제. 연결 계좌 잔액과 앱 업데이트 확인.</span></label></div>
+            <div class="item"><input id="pay-cards" type="checkbox"><label for="pay-cards"><strong>해외 결제 카드 2장</strong><span>Visa/Master/JCB 등 서로 다른 발급사 권장. 카드사 해외 사용 알림 켜기.</span></label></div>
+            <div class="item"><input id="pay-cash" type="checkbox"><label for="pay-cash"><strong>RMB 현금 500-1,000위안</strong><span>앱 오류, 소액 상점, 택시 비상용. 큰 현금은 세관 신고 기준 확인.</span></label></div>
+          </article>
+
+          <article class="check-card">
+            <h3>통신·앱 <span class="tag">도착 전</span></h3>
+            <div class="item"><input id="net-roaming" type="checkbox"><label for="net-roaming"><strong>한국 로밍 또는 중국 여행 eSIM</strong><span>중국 도착 전에 QR 설치·활성화 방법 저장. SMS 수신 가능 여부 확인.</span></label></div>
+            <div class="item"><input id="net-map" type="checkbox"><label for="net-map"><strong>Amap/Apple Maps/Baidu Maps</strong><span>Google Maps는 차단·좌표 오류 가능성이 있어 중국 지도 앱을 준비.</span></label></div>
+            <div class="item"><input id="net-translate" type="checkbox"><label for="net-translate"><strong>번역 앱 오프라인 팩</strong><span>중국어 간체, 한국어, 영어 번역팩과 카메라 번역 기능 확인.</span></label></div>
+            <div class="item"><input id="net-didi" type="checkbox"><label for="net-didi"><strong>DiDi 또는 Alipay 내 택시 기능</strong><span>공항·심야 이동 대비. 결제수단과 전화번호 인증 완료.</span></label></div>
+            <div class="item"><input id="net-backup" type="checkbox"><label for="net-backup"><strong>오프라인 백업</strong><span>항공권, 숙소, 보험, 긴급 연락처, 주요 주소를 휴대폰과 종이에 저장.</span></label></div>
+          </article>
+
+          <article class="check-card">
+            <h3>의약품·건강 <span class="tag">성분 확인</span></h3>
+            <div class="item"><input id="med-regular" type="checkbox"><label for="med-regular"><strong>상비약과 복용약은 원 포장</strong><span>개인 사용량만. 약통에 성분명과 이름이 보이게 보관.</span></label></div>
+            <div class="item"><input id="med-docs" type="checkbox"><label for="med-docs"><strong>처방전·진단서</strong><span>마약류·향정신성 성분 가능성이 있으면 여권과 함께 제시할 문서 준비.</span></label></div>
+            <div class="item"><input id="med-check" type="checkbox"><label for="med-check"><strong>규제 성분 확인</strong><span>ADHD 약, 수면제, 진정제, 강한 진통제, CBD/대마 성분은 특히 확인.</span></label></div>
+            <div class="item"><input id="med-vaccine" type="checkbox"><label for="med-vaccine"><strong>예방접종 상태 점검</strong><span>MMR, A형/B형 간염, 장티푸스, 인플루엔자 등 본인 상황에 맞게 상담.</span></label></div>
+            <div class="item"><input id="med-kit" type="checkbox"><label for="med-kit"><strong>여름 건강 키트</strong><span>수분보충제, 해열진통제, 지사제, 밴드, 벌레 물림 약, 손소독제.</span></label></div>
+          </article>
+
+          <article class="check-card">
+            <h3>전자기기 <span class="tag">수하물 주의</span></h3>
+            <div class="item"><input id="gear-adapter" type="checkbox"><label for="gear-adapter"><strong>멀티 어댑터</strong><span>중국은 주로 220V/50Hz, A/C/I형 콘센트. 충전기는 100-240V 표기 확인.</span></label></div>
+            <div class="item"><input id="gear-powerbank" type="checkbox"><label for="gear-powerbank"><strong>보조배터리 100Wh 이하</strong><span>기내 휴대. 위탁수하물 금지. 중국 국내선 이용 시 3C/CCC 표시 확인.</span></label></div>
+            <div class="item"><input id="gear-cables" type="checkbox"><label for="gear-cables"><strong>충전 케이블 2세트</strong><span>USB-C, Lightning 등 주력 케이블과 짧은 예비 케이블.</span></label></div>
+            <div class="item"><input id="gear-photo" type="checkbox"><label for="gear-photo"><strong>사진 백업 계획</strong><span>중국 내 클라우드 접속이 불안정할 수 있어 로컬 백업 공간 확보.</span></label></div>
+          </article>
+
+          <article class="check-card">
+            <h3>짐·생활 <span class="tag">7월 쓰촨/충칭</span></h3>
+            <div class="item"><input id="pack-clothes" type="checkbox"><label for="pack-clothes"><strong>가볍고 잘 마르는 옷</strong><span>청두·충칭 7월은 덥고 습하다. 상의 여벌과 얇은 겉옷 준비.</span></label></div>
+            <div class="item"><input id="pack-rain" type="checkbox"><label for="pack-rain"><strong>접이식 우산/양산</strong><span>소나기와 강한 햇빛을 둘 다 처리.</span></label></div>
+            <div class="item"><input id="pack-shoes" type="checkbox"><label for="pack-shoes"><strong>많이 걸어도 편한 신발</strong><span>미끄럼 덜한 운동화와 여분 양말.</span></label></div>
+            <div class="item"><input id="pack-sun" type="checkbox"><label for="pack-sun"><strong>선크림·모자·선글라스</strong><span>여름 야외 이동 대비.</span></label></div>
+            <div class="item"><input id="pack-daily" type="checkbox"><label for="pack-daily"><strong>티슈·물티슈·작은 쓰레기봉투</strong><span>화장실·이동 중 편의용. 손소독제도 같이.</span></label></div>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">통관·반입 주의</h2>
+      <div class="two-col">
+        <ul class="compact-list">
+          <li>세관 신고 기준: RMB 20,000 이상 또는 외화 현금 USD 5,000 상당 이상은 신고 채널을 이용한다.</li>
+          <li>중국에 남겨둘 개인 물품이 RMB 2,000 이상이면 비중국 거주자 기준 신고 대상이 될 수 있다.</li>
+          <li>12도 이상 주류 1,500ml 이상, 담배 400개비 이상, 시가 100개 이상, 담뱃잎 500g 이상은 신고 대상이다.</li>
+          <li>동식물, 육류·과일·씨앗류, 혈액·생물학적 물질, 상업용 샘플, 무전기류, 규제 물품은 피하거나 사전 확인한다.</li>
+          <li>확신이 없으면 녹색 채널 대신 적색 신고 채널에서 물어보는 편이 안전하다.</li>
+          <li>귀국 시 한국 반입 규정도 별도 적용된다. 육류·과일·식물류, 한약재, 주류·담배 면세 기준은 한국 입국 전 다시 확인한다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">현지 비상 메모</h2>
+      <div class="check-grid">
+        <article>
+          <h3>긴급 번호</h3>
+          <ul class="compact-list">
+            <li>경찰: 110</li>
+            <li>구급차: 120</li>
+            <li>화재: 119</li>
+            <li>교통사고: 122</li>
+          </ul>
+        </article>
+        <article>
+          <h3>대한민국 주청두총영사관</h3>
+          <ul class="compact-list">
+            <li>관할: 충칭, 쓰촨성, 윈난성, 구이저우성</li>
+            <li>대표전화: +86-28-8616-5800</li>
+            <li>긴급연락처: +86-139-8095-6348</li>
+            <li>외교부 영사콜센터: +82-2-3210-0404</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="source-card">
+      <h2 class="section-title">확인한 주요 출처</h2>
+      <p class="note">규정은 바뀔 수 있으니 출발 1주 전 한 번 더 확인한다. 아래 링크는 이 문서 작성 시 참고한 공식·준공식 자료다.</p>
+      <ol class="sources">
+        <li><a href="https://kr.china-embassy.gov.cn/lsfw/hzlxzyw/zgqz/202511/t20251104_11746485.htm">주한 중국대사관: 단방향 무비자 정책 연장 공지</a></li>
+        <li><a href="https://us.china-embassy.gov.cn/eng/lsfw/zj/notice/202412/t20241224_11516392.htm">중국대사관 FAQ: 무비자 입국 조건 및 체류일 계산</a></li>
+        <li><a href="https://english.customs.gov.cn/statics/88707c1e-aa4e-40ca-a968-bdbdbb565e4f.html">중국해관: 국제여객 통관 안내</a></li>
+        <li><a href="https://english.shanghai.gov.cn/en-ImmigrationCustoms/20240516/632357dc3fbe483c923a5c296795b618.html">상하이 해관: 개인 의약품 반입 안내</a></li>
+        <li><a href="https://wwwnc.cdc.gov/travel/destinations/traveler/none/china">CDC Travelers' Health: China</a></li>
+        <li><a href="https://www.caac.gov.cn/English/News/202507/t20250709_227894.html">CAAC: 중국 국내선 보조배터리 3C 표시 규정</a></li>
+        <li><a href="https://english.beijing.gov.cn/specials/aguidetoworkingandlivinginchinaasbusinessexpatriates2024/notes/202404/t20240424_3635064.html">Beijing.gov: 외국인 숙박 등록 안내</a></li>
+        <li><a href="https://www.alipayplus.com/cn/pay-in-the-chinese-mainland">Alipay+: 중국 본토 결제 안내</a></li>
+        <li><a href="https://www.gov.uk/foreign-travel-advice/china/safety-and-security">GOV.UK: 중국 안전·보안 여행 조언</a></li>
+        <li><a href="https://overseas.mofa.go.kr/cn-chengdu-ko/index.do?textMode=N">주청두 대한민국 총영사관</a></li>
+      </ol>
+    </section>
+
+    <footer>
+      마지막 업데이트: 2026-06-09 · 체크 상태는 이 브라우저의 localStorage에 저장된다.
+    </footer>
+  </main>
+
+  <script>
+    const boxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+    const storageKey = 'china-trip-checklist-2026';
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function readState() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function writeState(state) {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      const done = boxes.filter((box) => box.checked).length;
+      const total = boxes.length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      progressText.textContent = `${done} / ${total} 완료 (${percent}%)`;
+      progressBar.style.width = `${percent}%`;
+    }
+
+    const saved = readState();
+    boxes.forEach((box) => {
+      box.checked = Boolean(saved[box.id]);
+      box.addEventListener('change', () => {
+        const next = readState();
+        next[box.id] = box.checked;
+        writeState(next);
+        updateProgress();
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      boxes.forEach((box) => {
+        box.checked = false;
+      });
+      writeState({});
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
