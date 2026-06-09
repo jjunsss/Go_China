@@ -996,12 +996,17 @@
       font-size: 0.82rem;
     }
 
-    .video-feature {
+    .video-feature,
+    .video-card {
       overflow: hidden;
       border: 1px solid rgba(103, 72, 38, 0.18);
       border-radius: 8px;
       background: #111923;
       box-shadow: var(--small-shadow);
+    }
+
+    .video-feature {
+      margin-top: 18px;
     }
 
     .video-feature iframe,
@@ -1031,17 +1036,24 @@
     }
 
     .video-grid {
-      margin-top: 12px;
-    }
-
-    .video-card {
-      overflow: hidden;
-      background: #111923;
+      gap: 14px;
+      margin-top: 16px;
     }
 
     .video-card .video-caption {
       padding: 10px 12px 12px;
       font-size: 0.9rem;
+    }
+
+    @media (min-width: 901px) {
+      .spread[data-title="충칭 영상"] .page.right .video-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .spread[data-title="충칭 영상"] .page.right .video-card:first-child {
+        grid-column: 1 / -1;
+      }
     }
 
     .place-list {
@@ -1100,16 +1112,22 @@
 
     .map-legend {
       display: grid;
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
       margin-top: 12px;
-      font-size: 0.88rem;
+      padding: 0;
+      list-style: none;
+      font-size: 0.84rem;
     }
 
-    .map-legend span {
+    .map-legend li {
       display: grid;
       grid-template-columns: 22px minmax(0, 1fr);
       gap: 8px;
       align-items: start;
+      min-width: 0;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(103, 72, 38, 0.12);
       color: #4d3d30;
     }
 
@@ -1117,14 +1135,17 @@
       display: grid;
       gap: 2px;
       min-width: 0;
+      word-break: keep-all;
+      overflow-wrap: normal;
     }
 
     .map-name strong {
       color: #352219;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.25;
     }
 
+    .map-name span,
     .map-name em,
     .map-name small {
       color: #756757;
@@ -1132,14 +1153,39 @@
       line-height: 1.25;
     }
 
+    .map-name span {
+      color: #4f4439;
+      font-weight: 800;
+    }
+
+    .map-name small {
+      font-size: 0.75rem;
+    }
+
     .map-tooltip {
       border: 1px solid rgba(103, 72, 38, 0.22);
       border-radius: 6px;
+      max-width: 190px;
       color: #352219;
       background: rgba(255, 248, 232, 0.96);
       box-shadow: 0 8px 18px rgba(40, 27, 19, 0.18);
       font-family: var(--ui-font);
       font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .map-popup-title {
+      display: block;
+      margin-bottom: 5px;
+      color: #2c2119;
+      font-weight: 900;
+    }
+
+    .map-popup-meta {
+      display: block;
+      color: #4e4137;
+      line-height: 1.45;
+      word-break: keep-all;
     }
 
     .map-dot {
@@ -1369,6 +1415,10 @@
         min-height: 340px;
       }
 
+      .map-legend {
+        grid-template-columns: 1fr;
+      }
+
       .mobile-dock {
         position: fixed;
         left: 10px;
@@ -1500,7 +1550,7 @@
               <li class="index-item"><button type="button" data-jump="1">입국과 세관</button><span class="index-line"></span><span>p.03</span></li>
               <li class="index-item"><button type="button" data-jump="2">결제와 네트워크</button><span class="index-line"></span><span>p.05</span></li>
               <li class="index-item"><button type="button" data-jump="3">필수 준비물</button><span class="index-line"></span><span>p.07</span></li>
-              <li class="index-item"><button type="button" data-jump="4">충칭 영상 책갈피</button><span class="index-line"></span><span>p.09</span></li>
+              <li class="index-item"><button type="button" data-jump="4">충칭 영상</button><span class="index-line"></span><span>p.09</span></li>
               <li class="index-item"><button type="button" data-jump="5">충칭 지도와 조사 노트</button><span class="index-line"></span><span>p.11</span></li>
               <li class="index-item"><button type="button" data-jump="6">비상 연락과 출처</button><span class="index-line"></span><span>p.13</span></li>
             </ol>
@@ -1714,33 +1764,32 @@
         <article class="spread" data-title="충칭 영상" hidden>
           <section class="page left">
             <p class="eyebrow">Chongqing Reel</p>
-            <h2>영상으로 보는 충칭</h2>
-            <p class="lede">공개 임베드가 가능한 영상만 넣었습니다. 조회수는 계속 변하므로, 페이지에는 참고용으로만 표시합니다.</p>
+            <h2>충칭 영상</h2>
             <div class="video-feature">
               <iframe loading="lazy" src="https://www.youtube.com/embed/tMzCwwvHwN0" title="Hongya Cave Chongqing night walk video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               <div class="video-caption">
                 <strong>Hongya Cave Night Walk</strong>
-                <span>Walk East. vidIQ 기준 약 247만 조회 후보. 홍야동 야경 분위기 확인용.</span>
+                <span>홍야동 야경과 강변 이동 분위기</span>
               </div>
             </div>
             <span class="page-number">9</span>
           </section>
 
           <section class="page right">
-            <p class="eyebrow">Bookmarks</p>
-            <h2>책갈피 영상</h2>
+            <p class="eyebrow">Chongqing Angles</p>
+            <h2>도시 감 잡기</h2>
             <div class="video-grid">
               <div class="video-card">
                 <iframe loading="lazy" src="https://www.youtube.com/embed/yzl4jc9E5GU" title="Magic of Chongqing walking tour video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                <div class="video-caption"><strong>Magic of Chongqing</strong><span>Walk East. vidIQ 기준 약 198만 조회 후보.</span></div>
+                <div class="video-caption"><strong>Magic of Chongqing</strong><span>도심 고저차와 야간 보행 분위기</span></div>
               </div>
               <div class="video-card">
                 <iframe loading="lazy" src="https://www.youtube.com/embed/uHMcDaxobA0" title="Kuixing Building Chongqing 4K walk video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                <div class="video-caption"><strong>Kuixing Building</strong><span>건물 위 광장처럼 보이는 충칭식 입체 도시 레퍼런스.</span></div>
+                <div class="video-caption"><strong>Kuixing Building</strong><span>건물 위 광장처럼 보이는 입체 도시 구조</span></div>
               </div>
               <div class="video-card">
                 <iframe loading="lazy" src="https://www.youtube.com/embed/0UAKIuMsKwY" title="Liziba Station train through building video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                <div class="video-caption"><strong>Liziba Station</strong><span>건물을 통과하는 모노레일 촬영 포인트 확인.</span></div>
+                <div class="video-caption"><strong>Liziba Station</strong><span>건물을 통과하는 모노레일 촬영 포인트</span></div>
               </div>
             </div>
             <span class="page-number">10</span>
@@ -1755,15 +1804,15 @@
               <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
               <button class="map-lock" type="button" id="mapLock" aria-pressed="false">지도 이동 켜기</button>
             </div>
-            <div class="map-legend">
-              <span><i class="map-dot">1</i><span class="map-name"><strong>홍야동</strong><em>Hongya Cave / Hongyadong · 洪崖洞</em><small>29.5650738, 106.5753425</small></span></span>
-              <span><i class="map-dot">2</i><span class="map-name"><strong>해방비</strong><em>Jiefangbei Monument · 抗战胜利纪功碑暨人民解放纪念碑</em><small>29.5601096, 106.5733569</small></span></span>
-              <span><i class="map-dot">3</i><span class="map-name"><strong>장강삭도 북역</strong><em>Yangtze River Cableway North Station · 长江索道北站</em><small>29.5605806, 106.5791173</small></span></span>
-              <span><i class="map-dot">4</i><span class="map-name"><strong>리쯔바역</strong><em>Liziba Station · 李子坝</em><small>29.5556616, 106.5339223</small></span></span>
-              <span><i class="map-dot">5</i><span class="map-name"><strong>십팔제</strong><em>Shibati Traditional Area · 重庆十八梯传统风貌区</em><small>29.5537658, 106.5696236</small></span></span>
-              <span><i class="map-dot">6</i><span class="map-name"><strong>백상거</strong><em>Baixiangju · 白象居</em><small>29.5585282, 106.5813482</small></span></span>
-              <span><i class="map-dot">7</i><span class="map-name"><strong>용문호 옛거리</strong><em>Longmenhao Old Street · 龙门浩老街</em><small>29.5588249, 106.5912051</small></span></span>
-            </div>
+            <ul class="map-legend">
+              <li><i class="map-dot">1</i><span class="map-name"><strong>홍야동</strong><span>Hongyadong</span><small>검색명: 洪崖洞</small></span></li>
+              <li><i class="map-dot">2</i><span class="map-name"><strong>해방비</strong><span>Jiefangbei</span><small>검색명: 解放碑</small></span></li>
+              <li><i class="map-dot">3</i><span class="map-name"><strong>장강삭도 북역</strong><span>Yangtze Cableway North</span><small>검색명: 长江索道北站</small></span></li>
+              <li><i class="map-dot">4</i><span class="map-name"><strong>리쯔바역</strong><span>Liziba Station</span><small>검색명: 李子坝</small></span></li>
+              <li><i class="map-dot">5</i><span class="map-name"><strong>십팔제</strong><span>Shibati</span><small>검색명: 十八梯</small></span></li>
+              <li><i class="map-dot">6</i><span class="map-name"><strong>백상거</strong><span>Baixiangju</span><small>검색명: 白象居</small></span></li>
+              <li><i class="map-dot">7</i><span class="map-name"><strong>용문호 옛거리</strong><span>Longmenhao Old Street</span><small>검색명: 龙门浩老街</small></span></li>
+            </ul>
             <span class="page-number">11</span>
           </section>
 
@@ -1810,8 +1859,7 @@
               <div class="source-item"><strong>CDC Travelers' Health</strong><a href="https://wwwnc.cdc.gov/travel/destinations/china" target="_blank" rel="noreferrer">중국 여행 건강·백신 정보</a></div>
               <div class="source-item"><strong>Toss Feed</strong><a href="https://toss.im/tossfeed/article/tosspay-offlline-overseas-payment" target="_blank" rel="noreferrer">Toss Pay 해외 오프라인 결제 안내</a></div>
               <div class="source-item"><strong>Alipay+</strong><a href="https://www.alipayplus.com/my/pay-in-the-chinese-mainland" target="_blank" rel="noreferrer">중국 본토 결제 안내</a></div>
-              <div class="source-item"><strong>영상 조회수 참고</strong><a href="https://vidiq.com/youtube-stats/channel/UCip2HiAmspOVMeh0yxMcEaA/" target="_blank" rel="noreferrer">vidIQ Walk East 채널 통계</a></div>
-              <div class="source-item"><strong>지도 좌표</strong><a href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer">OpenStreetMap/Nominatim 기준 좌표</a></div>
+              <div class="source-item"><strong>지도 좌표와 타일</strong><a href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer">OpenStreetMap 좌표 · CARTO Voyager 타일</a></div>
               <div class="source-item"><strong>본문 폰트</strong><a href="https://fonts.google.com/specimen/Gowun+Batang" target="_blank" rel="noreferrer">Gowun Batang</a></div>
             </div>
             <span class="page-number">14</span>
@@ -1846,7 +1894,7 @@
       const prevButtons = ["prevTop", "prevPage", "prevDock"].map((id) => document.getElementById(id));
       const nextButtons = ["nextTop", "nextPage", "nextDock"].map((id) => document.getElementById(id));
       const slugs = ["index", "entry", "payment", "packing", "videos", "map", "emergency"];
-      const titles = ["목차", "입국과 세관", "결제와 네트워크", "필수 준비물", "충칭 영상 책갈피", "충칭 지도와 조사 노트", "비상 연락과 출처"];
+      const titles = ["목차", "입국과 세관", "결제와 네트워크", "필수 준비물", "충칭 영상", "충칭 지도와 조사 노트", "비상 연락과 출처"];
       const turnDuration = 980;
       const turnSwapDelay = 520;
       let current = 0;
@@ -1854,11 +1902,11 @@
       let mapReady = false;
 
       const chongqingSpots = [
-        { name: "홍야동", en: "Hongya Cave / Hongyadong", cn: "洪崖洞", lat: 29.5650738, lng: 106.5753425, note: "야경과 강변 동선의 기준점" },
-        { name: "해방비", en: "Jiefangbei Monument", cn: "抗战胜利纪功碑暨人民解放纪念碑", lat: 29.5601096, lng: 106.5733569, note: "중심 상권과 만남 지점" },
-        { name: "장강삭도 북역", en: "Yangtze River Cableway North Station", cn: "长江索道北站", lat: 29.5605806, lng: 106.5791173, note: "삭도 탑승 북측 역" },
+        { name: "홍야동", en: "Hongyadong", cn: "洪崖洞", lat: 29.5650738, lng: 106.5753425, note: "야경과 강변 동선의 기준점" },
+        { name: "해방비", en: "Jiefangbei", cn: "解放碑", lat: 29.5601096, lng: 106.5733569, note: "중심 상권과 만남 지점" },
+        { name: "장강삭도 북역", en: "Yangtze Cableway North", cn: "长江索道北站", lat: 29.5605806, lng: 106.5791173, note: "삭도 탑승 북측 역" },
         { name: "리쯔바역", en: "Liziba Station", cn: "李子坝", lat: 29.5556616, lng: 106.5339223, note: "건물 관통 모노레일 촬영 포인트" },
-        { name: "십팔제", en: "Shibati Traditional Area", cn: "重庆十八梯传统风貌区", lat: 29.5537658, lng: 106.5696236, note: "계단과 골목 동선" },
+        { name: "십팔제", en: "Shibati", cn: "十八梯", lat: 29.5537658, lng: 106.5696236, note: "계단과 골목 동선" },
         { name: "백상거", en: "Baixiangju", cn: "白象居", lat: 29.5585282, lng: 106.5813482, note: "입체 도시 촬영 포인트" },
         { name: "용문호 옛거리", en: "Longmenhao Old Street", cn: "龙门浩老街", lat: 29.5588249, lng: 106.5912051, note: "남안구 강변 옛거리" }
       ];
@@ -1892,9 +1940,10 @@
           });
         }
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-          attribution: "&copy; OpenStreetMap contributors"
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png", {
+          maxZoom: 20,
+          subdomains: "abcd",
+          attribution: "&copy; OpenStreetMap contributors &copy; CARTO"
         }).addTo(map);
 
         const bounds = [];
@@ -1910,7 +1959,10 @@
             })
           })
             .addTo(map)
-            .bindPopup(`<strong>${index + 1}. ${spot.name}</strong><br>${spot.en}<br>${spot.cn}<br>${spot.note}`);
+            .bindPopup(`
+              <span class="map-popup-title">${index + 1}. ${spot.name}</span>
+              <span class="map-popup-meta">${spot.en}<br>${spot.cn}<br>${spot.note}<br>${spot.lat.toFixed(4)}, ${spot.lng.toFixed(4)}</span>
+            `);
 
           if (!window.matchMedia("(max-width: 720px)").matches) {
             marker.bindTooltip(spot.en, {
