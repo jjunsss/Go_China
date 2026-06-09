@@ -948,10 +948,40 @@
     }
 
     .map-legend span {
-      display: inline-flex;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
       gap: 8px;
+      align-items: start;
       color: #4d3d30;
+    }
+
+    .map-name {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .map-name strong {
+      color: #352219;
+      font-size: 0.95rem;
+      line-height: 1.25;
+    }
+
+    .map-name em,
+    .map-name small {
+      color: #756757;
+      font-style: normal;
+      line-height: 1.25;
+    }
+
+    .map-tooltip {
+      border: 1px solid rgba(103, 72, 38, 0.22);
+      border-radius: 6px;
+      color: #352219;
+      background: rgba(255, 248, 232, 0.96);
+      box-shadow: 0 8px 18px rgba(40, 27, 19, 0.18);
+      font-family: var(--ui-font);
+      font-weight: 800;
     }
 
     .map-dot {
@@ -1556,13 +1586,13 @@
             <h2>충칭 핵심 지점</h2>
             <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
             <div class="map-legend">
-              <span><i class="map-dot">1</i>홍야동 29.5650738, 106.5753425</span>
-              <span><i class="map-dot">2</i>해방비 29.5601096, 106.5733569</span>
-              <span><i class="map-dot">3</i>장강삭도 북역 29.5605806, 106.5791173</span>
-              <span><i class="map-dot">4</i>리쯔바역 29.5556616, 106.5339223</span>
-              <span><i class="map-dot">5</i>십팔제 29.5537658, 106.5696236</span>
-              <span><i class="map-dot">6</i>백상거 29.5585282, 106.5813482</span>
-              <span><i class="map-dot">7</i>용문호 옛거리 29.5588249, 106.5912051</span>
+              <span><i class="map-dot">1</i><span class="map-name"><strong>홍야동</strong><em>Hongya Cave / Hongyadong · 洪崖洞</em><small>29.5650738, 106.5753425</small></span></span>
+              <span><i class="map-dot">2</i><span class="map-name"><strong>해방비</strong><em>Jiefangbei Monument · 抗战胜利纪功碑暨人民解放纪念碑</em><small>29.5601096, 106.5733569</small></span></span>
+              <span><i class="map-dot">3</i><span class="map-name"><strong>장강삭도 북역</strong><em>Yangtze River Cableway North Station · 长江索道北站</em><small>29.5605806, 106.5791173</small></span></span>
+              <span><i class="map-dot">4</i><span class="map-name"><strong>리쯔바역</strong><em>Liziba Station · 李子坝</em><small>29.5556616, 106.5339223</small></span></span>
+              <span><i class="map-dot">5</i><span class="map-name"><strong>십팔제</strong><em>Shibati Traditional Area · 重庆十八梯传统风貌区</em><small>29.5537658, 106.5696236</small></span></span>
+              <span><i class="map-dot">6</i><span class="map-name"><strong>백상거</strong><em>Baixiangju · 白象居</em><small>29.5585282, 106.5813482</small></span></span>
+              <span><i class="map-dot">7</i><span class="map-name"><strong>용문호 옛거리</strong><em>Longmenhao Old Street · 龙门浩老街</em><small>29.5588249, 106.5912051</small></span></span>
             </div>
             <span class="page-number">11</span>
           </section>
@@ -1646,13 +1676,13 @@
       let mapReady = false;
 
       const chongqingSpots = [
-        { name: "홍야동", cn: "洪崖洞", lat: 29.5650738, lng: 106.5753425, note: "야경과 강변 동선의 기준점" },
-        { name: "해방비", cn: "抗战胜利纪功碑暨人民解放纪念碑", lat: 29.5601096, lng: 106.5733569, note: "중심 상권과 만남 지점" },
-        { name: "장강삭도 북역", cn: "长江索道北站", lat: 29.5605806, lng: 106.5791173, note: "삭도 탑승 북측 역" },
-        { name: "리쯔바역", cn: "李子坝", lat: 29.5556616, lng: 106.5339223, note: "건물 관통 모노레일 촬영 포인트" },
-        { name: "십팔제", cn: "重庆十八梯传统风貌区", lat: 29.5537658, lng: 106.5696236, note: "계단과 골목 동선" },
-        { name: "백상거", cn: "白象居", lat: 29.5585282, lng: 106.5813482, note: "입체 도시 촬영 포인트" },
-        { name: "용문호 옛거리", cn: "龙门浩老街", lat: 29.5588249, lng: 106.5912051, note: "남안구 강변 옛거리" }
+        { name: "홍야동", en: "Hongya Cave / Hongyadong", cn: "洪崖洞", lat: 29.5650738, lng: 106.5753425, note: "야경과 강변 동선의 기준점" },
+        { name: "해방비", en: "Jiefangbei Monument", cn: "抗战胜利纪功碑暨人民解放纪念碑", lat: 29.5601096, lng: 106.5733569, note: "중심 상권과 만남 지점" },
+        { name: "장강삭도 북역", en: "Yangtze River Cableway North Station", cn: "长江索道北站", lat: 29.5605806, lng: 106.5791173, note: "삭도 탑승 북측 역" },
+        { name: "리쯔바역", en: "Liziba Station", cn: "李子坝", lat: 29.5556616, lng: 106.5339223, note: "건물 관통 모노레일 촬영 포인트" },
+        { name: "십팔제", en: "Shibati Traditional Area", cn: "重庆十八梯传统风貌区", lat: 29.5537658, lng: 106.5696236, note: "계단과 골목 동선" },
+        { name: "백상거", en: "Baixiangju", cn: "白象居", lat: 29.5585282, lng: 106.5813482, note: "입체 도시 촬영 포인트" },
+        { name: "용문호 옛거리", en: "Longmenhao Old Street", cn: "龙门浩老街", lat: 29.5588249, lng: 106.5912051, note: "남안구 강변 옛거리" }
       ];
 
       const initChongqingMap = () => {
@@ -1673,7 +1703,7 @@
         const bounds = [];
         chongqingSpots.forEach((spot, index) => {
           bounds.push([spot.lat, spot.lng]);
-          L.marker([spot.lat, spot.lng], {
+          const marker = L.marker([spot.lat, spot.lng], {
             title: `${index + 1}. ${spot.name}`,
             icon: L.divIcon({
               className: "map-marker",
@@ -1683,7 +1713,16 @@
             })
           })
             .addTo(map)
-            .bindPopup(`<strong>${index + 1}. ${spot.name}</strong><br>${spot.cn}<br>${spot.note}`);
+            .bindPopup(`<strong>${index + 1}. ${spot.name}</strong><br>${spot.en}<br>${spot.cn}<br>${spot.note}`);
+
+          if (!window.matchMedia("(max-width: 720px)").matches) {
+            marker.bindTooltip(spot.en, {
+              permanent: true,
+              direction: "top",
+              offset: [0, -18],
+              className: "map-tooltip"
+            });
+          }
         });
 
         map.fitBounds(bounds, { padding: [24, 24] });
