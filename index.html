@@ -4,7 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Go China 2026 Travel Book</title>
+  <link rel="stylesheet" href="assets/leaflet/leaflet.css">
   <style>
+    @font-face {
+      font-family: "Gowun Batang";
+      src: url("assets/fonts/GowunBatang-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Gowun Batang";
+      src: url("assets/fonts/GowunBatang-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       color-scheme: light;
       --ink: #1d2730;
@@ -16,13 +33,12 @@
       --wood: #3b2020;
       --cover: #7d292c;
       --cover-dark: #2b1618;
-      --jade: #1d7b63;
-      --blue: #28648a;
       --gold: #b87825;
-      --plum: #6c3b72;
       --paper-shadow: 0 22px 70px rgba(18, 18, 22, 0.36);
       --small-shadow: 0 10px 28px rgba(20, 18, 18, 0.16);
-      font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --book-font: "Gowun Batang", "Noto Serif KR", Batang, serif;
+      --ui-font: Pretendard, "Noto Sans KR", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--book-font);
     }
 
     * {
@@ -40,6 +56,7 @@
       background:
         linear-gradient(115deg, rgba(11, 18, 27, 0.94), rgba(49, 30, 28, 0.88) 55%, rgba(17, 54, 57, 0.9)),
         url("https://i.ytimg.com/vi/yzl4jc9E5GU/maxresdefault.jpg") center / cover fixed;
+      font-family: var(--book-font);
       line-height: 1.5;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -69,6 +86,18 @@
     a {
       color: #0f5f83;
       text-underline-offset: 3px;
+    }
+
+    .topbar,
+    .pill,
+    .icon-button,
+    .tab,
+    .dock-button,
+    .video-caption,
+    .source-item,
+    .map-legend,
+    .leaflet-container {
+      font-family: var(--ui-font);
     }
 
     .skip-link {
@@ -333,25 +362,41 @@
 
     .pill,
     .icon-button {
-      border: 1px solid rgba(255, 248, 232, 0.28);
+      border: 1px solid rgba(246, 225, 184, 0.42);
       border-radius: 999px;
-      color: #fff8e8;
-      background: rgba(255, 248, 232, 0.08);
+      color: #2e241d;
+      background:
+        linear-gradient(180deg, rgba(255, 249, 232, 0.98), rgba(224, 198, 152, 0.94));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        0 8px 18px rgba(0, 0, 0, 0.18);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .pill:hover,
+    .icon-button:hover,
+    .dock-button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.78),
+        0 12px 22px rgba(0, 0, 0, 0.22);
     }
 
     .pill {
-      padding: 8px 12px;
+      padding: 9px 14px;
       font-size: 0.88rem;
       text-decoration: none;
       white-space: nowrap;
+      font-weight: 800;
     }
 
     .icon-button {
       display: inline-grid;
       place-items: center;
-      width: 38px;
-      height: 38px;
-      font-size: 1.1rem;
+      width: 42px;
+      height: 42px;
+      font-size: 1.18rem;
+      font-weight: 900;
     }
 
     .book-wrap {
@@ -405,11 +450,12 @@
       flex: 0 0 auto;
       border: 1px solid rgba(255, 248, 232, 0.22);
       border-radius: 999px;
-      padding: 9px 13px;
+      padding: 10px 14px;
       color: rgba(255, 248, 232, 0.76);
-      background: rgba(255, 248, 232, 0.08);
-      transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+      background: rgba(255, 248, 232, 0.07);
+      transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease;
       white-space: nowrap;
+      font-weight: 800;
     }
 
     .tab[aria-current="true"],
@@ -417,6 +463,7 @@
       color: #1d2730;
       background: #fff8e8;
       border-color: #fff8e8;
+      transform: translateY(-1px);
     }
 
     .book {
@@ -459,9 +506,76 @@
       animation: pageTurn 360ms ease both;
     }
 
+    .spread.turn-out-next .page.right,
+    .spread.turn-out-prev .page.left,
+    .spread.turn-in-next .page.left,
+    .spread.turn-in-prev .page.right {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+    }
+
+    .spread.turn-out-next .page.right {
+      z-index: 6;
+      transform-origin: left center;
+      animation: leafOutNext 820ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+    }
+
+    .spread.turn-out-prev .page.left {
+      z-index: 6;
+      transform-origin: right center;
+      animation: leafOutPrev 820ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+    }
+
+    .spread.turn-in-next .page.left {
+      transform-origin: left center;
+      animation: leafInNext 460ms ease both;
+    }
+
+    .spread.turn-in-prev .page.right {
+      transform-origin: right center;
+      animation: leafInPrev 460ms ease both;
+    }
+
+    .book.is-turning-next::after,
+    .book.is-turning-prev::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 42%, rgba(255, 248, 232, 0.22) 50%, transparent 58%);
+      animation: turnSheen 820ms ease both;
+    }
+
     @keyframes pageTurn {
       0% { opacity: 0.25; transform: rotateY(8deg) scale(0.995); }
       100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+    }
+
+    @keyframes leafOutNext {
+      0% { opacity: 1; transform: perspective(1500px) rotateY(0deg); box-shadow: inset 22px 0 30px rgba(85, 53, 25, 0.13); }
+      100% { opacity: 0.28; transform: perspective(1500px) rotateY(-78deg); box-shadow: inset 56px 0 58px rgba(48, 30, 17, 0.28); }
+    }
+
+    @keyframes leafOutPrev {
+      0% { opacity: 1; transform: perspective(1500px) rotateY(0deg); box-shadow: inset -22px 0 30px rgba(85, 53, 25, 0.12); }
+      100% { opacity: 0.28; transform: perspective(1500px) rotateY(78deg); box-shadow: inset -56px 0 58px rgba(48, 30, 17, 0.28); }
+    }
+
+    @keyframes leafInNext {
+      0% { opacity: 0.48; transform: perspective(1500px) rotateY(10deg); }
+      100% { opacity: 1; transform: perspective(1500px) rotateY(0deg); }
+    }
+
+    @keyframes leafInPrev {
+      0% { opacity: 0.48; transform: perspective(1500px) rotateY(-10deg); }
+      100% { opacity: 1; transform: perspective(1500px) rotateY(0deg); }
+    }
+
+    @keyframes turnSheen {
+      0% { opacity: 0; transform: translateX(20%); }
+      45% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateX(-20%); }
     }
 
     .page {
@@ -512,7 +626,6 @@
 
     .page h2 {
       margin: 0 0 16px;
-      font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(1.8rem, 3.2vw, 3rem);
       line-height: 1.05;
       letter-spacing: 0;
@@ -671,11 +784,11 @@
     .callout {
       margin: 18px 0;
       padding: 15px;
-      border-left: 5px solid var(--jade);
+      box-shadow: inset 0 0 0 1px rgba(103, 72, 38, 0.09);
     }
 
     .callout.warning {
-      border-left-color: #b44d35;
+      background: rgba(255, 252, 241, 0.72);
     }
 
     .callout strong {
@@ -815,6 +928,73 @@
       display: block;
       margin-bottom: 3px;
       color: #352219;
+    }
+
+    .map-panel {
+      width: 100%;
+      min-height: 430px;
+      overflow: hidden;
+      border: 1px solid rgba(103, 72, 38, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 252, 241, 0.72);
+      box-shadow: var(--small-shadow);
+    }
+
+    .map-legend {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+    }
+
+    .map-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4d3d30;
+    }
+
+    .map-dot {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: #fff8e8;
+      background: #4d3628;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .map-marker {
+      display: grid;
+      place-items: center;
+      width: 28px !important;
+      height: 28px !important;
+      margin-left: -14px !important;
+      margin-top: -14px !important;
+      border: 2px solid #fff8e8;
+      border-radius: 50%;
+      color: #fff8e8;
+      background: #4d3628;
+      box-shadow: 0 8px 18px rgba(40, 27, 19, 0.32);
+      font-family: var(--ui-font);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .map-marker span {
+      transform: translateY(-0.5px);
+    }
+
+    .leaflet-container {
+      color: #1d2730;
+    }
+
+    .leaflet-popup-content {
+      margin: 10px 12px;
+      line-height: 1.45;
     }
 
     .source-list {
@@ -989,6 +1169,10 @@
         grid-template-columns: 72px minmax(0, 1fr);
       }
 
+      .map-panel {
+        min-height: 340px;
+      }
+
       .mobile-dock {
         position: fixed;
         left: 10px;
@@ -1008,10 +1192,11 @@
 
       .dock-button {
         min-height: 44px;
-        border: 1px solid rgba(255, 248, 232, 0.26);
+        border: 1px solid rgba(246, 225, 184, 0.42);
         border-radius: 6px;
-        color: #fff8e8;
-        background: rgba(255, 248, 232, 0.08);
+        color: #2e241d;
+        background:
+          linear-gradient(180deg, rgba(255, 249, 232, 0.98), rgba(224, 198, 152, 0.94));
         font-weight: 800;
       }
     }
@@ -1034,6 +1219,19 @@
       .intro.is-playing .intro-cover,
       .intro.is-playing .intro-pages::before {
         animation-duration: 3300ms !important;
+      }
+
+      .spread.turn-out-next .page.right,
+      .spread.turn-out-prev .page.left,
+      .book.is-turning-next::after,
+      .book.is-turning-prev::after {
+        animation-duration: 820ms !important;
+      }
+
+      .spread.turn-in-next .page.left,
+      .spread.turn-in-prev .page.right,
+      .spread.is-active {
+        animation-duration: 460ms !important;
       }
     }
   </style>
@@ -1072,7 +1270,6 @@
       <div class="book-header">
         <div>
           <h1>China<br>Travel Book</h1>
-          <p>2026년 7월, 서울에서 청두로 들어가 충칭에서 돌아오는 여행 준비 노트.</p>
         </div>
       </div>
 
@@ -1083,7 +1280,7 @@
           <button class="tab" type="button" data-spread="2">결제</button>
           <button class="tab" type="button" data-spread="3">준비물</button>
           <button class="tab" type="button" data-spread="4">충칭 영상</button>
-          <button class="tab" type="button" data-spread="5">도시 메모</button>
+          <button class="tab" type="button" data-spread="5">충칭 지도</button>
           <button class="tab" type="button" data-spread="6">비상/출처</button>
         </div>
         <div class="nav-buttons">
@@ -1103,7 +1300,7 @@
               <li class="index-item"><button type="button" data-jump="2">결제와 네트워크</button><span class="index-line"></span><span>p.05</span></li>
               <li class="index-item"><button type="button" data-jump="3">필수 준비물</button><span class="index-line"></span><span>p.07</span></li>
               <li class="index-item"><button type="button" data-jump="4">충칭 영상 책갈피</button><span class="index-line"></span><span>p.09</span></li>
-              <li class="index-item"><button type="button" data-jump="5">도시별 메모</button><span class="index-line"></span><span>p.11</span></li>
+              <li class="index-item"><button type="button" data-jump="5">충칭 지도와 조사 노트</button><span class="index-line"></span><span>p.11</span></li>
               <li class="index-item"><button type="button" data-jump="6">비상 연락과 출처</button><span class="index-line"></span><span>p.13</span></li>
             </ol>
             <div class="stamp-grid">
@@ -1353,28 +1550,33 @@
           </section>
         </article>
 
-        <article class="spread" data-title="도시 메모" hidden>
+        <article class="spread" data-title="충칭 지도" hidden>
           <section class="page left">
-            <p class="eyebrow">Chengdu</p>
-            <h2>청두 메모</h2>
-            <ul class="place-list">
-              <li><strong>도착일은 여유 있게</strong> TFU 도착 후 입국, 수하물, 시내 이동까지 감안해 첫날 일정은 가볍게 잡습니다.</li>
-              <li><strong>판다·찻집·마라</strong> 청두는 판다 기지, 인민공원 찻집, 사천요리 동선을 중심으로 잡으면 효율적입니다.</li>
-              <li><strong>고속철 이동</strong> 청두-충칭 이동을 기차로 잡을 경우 여권 원본이 필요합니다. 예약 정보도 캡처합니다.</li>
-              <li><strong>음식 강도</strong> 사천·충칭은 매운맛과 기름이 강합니다. 위장약과 물티슈를 챙깁니다.</li>
-            </ul>
+            <p class="eyebrow">Chongqing Map</p>
+            <h2>충칭 핵심 지점</h2>
+            <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
+            <div class="map-legend">
+              <span><i class="map-dot">1</i>홍야동 29.5650738, 106.5753425</span>
+              <span><i class="map-dot">2</i>해방비 29.5601096, 106.5733569</span>
+              <span><i class="map-dot">3</i>장강삭도 북역 29.5605806, 106.5791173</span>
+              <span><i class="map-dot">4</i>리쯔바역 29.5556616, 106.5339223</span>
+              <span><i class="map-dot">5</i>십팔제 29.5537658, 106.5696236</span>
+              <span><i class="map-dot">6</i>백상거 29.5585282, 106.5813482</span>
+              <span><i class="map-dot">7</i>용문호 옛거리 29.5588249, 106.5912051</span>
+            </div>
             <span class="page-number">11</span>
           </section>
 
           <section class="page right">
-            <p class="eyebrow">Chongqing</p>
-            <h2>충칭 메모</h2>
+            <p class="eyebrow">Field Notes</p>
+            <h2>조사 노트</h2>
             <ul class="place-list">
-              <li><strong>홍야동</strong> 야경 시간대가 핵심입니다. 혼잡이 심하니 귀가 동선을 미리 잡습니다.</li>
-              <li><strong>Liziba Station</strong> 2호선 모노레일이 건물을 통과하는 포인트. 낮 촬영이 안정적입니다.</li>
-              <li><strong>Kuixing Building</strong> 평지처럼 보이는데 고층 건물 위인 장소. 충칭의 고저차를 체감하기 좋습니다.</li>
-              <li><strong>Jiefangbei</strong> 중심 상권이라 식사, 쇼핑, 야경 이동의 기준점으로 쓰기 좋습니다.</li>
-              <li><strong>Yangtze River Cableway</strong> 대기시간이 길 수 있어 시간대와 예약 가능 여부를 미리 확인합니다.</li>
+              <li><strong>홍야동</strong> 야경과 강변 동선의 기준점. 해방비에서 도보 접근이 가능하지만 밤에는 혼잡이 큽니다.</li>
+              <li><strong>해방비</strong> 중심 상권 기준점. 식사, 쇼핑, 야간 이동을 잡을 때 출발점으로 쓰기 좋습니다.</li>
+              <li><strong>장강삭도</strong> 북역과 남역을 모두 표시했습니다. 대기 시간이 길 수 있어 탑승 시간대를 먼저 확인합니다.</li>
+              <li><strong>리쯔바역</strong> 건물 관통 모노레일 촬영 포인트. 중심가와 거리가 있어 별도 이동 시간을 잡아야 합니다.</li>
+              <li><strong>십팔제·백상거·용문호</strong> 고저차와 골목 동선이 큰 구역입니다. 지도 앱에 중국어 이름을 저장해 이동합니다.</li>
+              <li><strong>Kuixing Building</strong> 영상 레퍼런스는 유지하되, 지도 좌표는 현지 지도 앱에서 재확인 후 확정하는 편이 안전합니다.</li>
             </ul>
             <span class="page-number">12</span>
           </section>
@@ -1409,6 +1611,8 @@
               <div class="source-item"><strong>Toss Feed</strong><a href="https://toss.im/tossfeed/article/tosspay-offlline-overseas-payment" target="_blank" rel="noreferrer">Toss Pay 해외 오프라인 결제 안내</a></div>
               <div class="source-item"><strong>Alipay+</strong><a href="https://www.alipayplus.com/my/pay-in-the-chinese-mainland" target="_blank" rel="noreferrer">중국 본토 결제 안내</a></div>
               <div class="source-item"><strong>영상 조회수 참고</strong><a href="https://vidiq.com/youtube-stats/channel/UCip2HiAmspOVMeh0yxMcEaA/" target="_blank" rel="noreferrer">vidIQ Walk East 채널 통계</a></div>
+              <div class="source-item"><strong>지도 좌표</strong><a href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer">OpenStreetMap/Nominatim 기준 좌표</a></div>
+              <div class="source-item"><strong>본문 폰트</strong><a href="https://fonts.google.com/specimen/Gowun+Batang" target="_blank" rel="noreferrer">Gowun Batang</a></div>
             </div>
             <span class="page-number">14</span>
           </section>
@@ -1428,14 +1632,65 @@
     </div>
   </main>
 
+  <script src="assets/leaflet/leaflet.js"></script>
   <script>
     (() => {
       const spreads = [...document.querySelectorAll(".spread")];
       const tabs = [...document.querySelectorAll(".tab")];
       const intro = document.getElementById("intro");
+      const book = document.getElementById("book");
+      const turnDuration = 980;
+      const turnSwapDelay = 520;
       let current = 0;
+      let turning = false;
+      let mapReady = false;
 
-      const showSpread = (index) => {
+      const chongqingSpots = [
+        { name: "홍야동", cn: "洪崖洞", lat: 29.5650738, lng: 106.5753425, note: "야경과 강변 동선의 기준점" },
+        { name: "해방비", cn: "抗战胜利纪功碑暨人民解放纪念碑", lat: 29.5601096, lng: 106.5733569, note: "중심 상권과 만남 지점" },
+        { name: "장강삭도 북역", cn: "长江索道北站", lat: 29.5605806, lng: 106.5791173, note: "삭도 탑승 북측 역" },
+        { name: "리쯔바역", cn: "李子坝", lat: 29.5556616, lng: 106.5339223, note: "건물 관통 모노레일 촬영 포인트" },
+        { name: "십팔제", cn: "重庆十八梯传统风貌区", lat: 29.5537658, lng: 106.5696236, note: "계단과 골목 동선" },
+        { name: "백상거", cn: "白象居", lat: 29.5585282, lng: 106.5813482, note: "입체 도시 촬영 포인트" },
+        { name: "용문호 옛거리", cn: "龙门浩老街", lat: 29.5588249, lng: 106.5912051, note: "남안구 강변 옛거리" }
+      ];
+
+      const initChongqingMap = () => {
+        const mapEl = document.getElementById("chongqingMap");
+        if (!mapEl || mapReady || !window.L) return;
+        mapReady = true;
+
+        const map = L.map(mapEl, {
+          scrollWheelZoom: false,
+          zoomControl: true
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        const bounds = [];
+        chongqingSpots.forEach((spot, index) => {
+          bounds.push([spot.lat, spot.lng]);
+          L.marker([spot.lat, spot.lng], {
+            title: `${index + 1}. ${spot.name}`,
+            icon: L.divIcon({
+              className: "map-marker",
+              html: `<span>${index + 1}</span>`,
+              iconSize: [28, 28],
+              iconAnchor: [14, 14]
+            })
+          })
+            .addTo(map)
+            .bindPopup(`<strong>${index + 1}. ${spot.name}</strong><br>${spot.cn}<br>${spot.note}`);
+        });
+
+        map.fitBounds(bounds, { padding: [24, 24] });
+        window.setTimeout(() => map.invalidateSize(), 120);
+      };
+
+      const setSpread = (index) => {
         current = Math.max(0, Math.min(index, spreads.length - 1));
         spreads.forEach((spread, spreadIndex) => {
           const active = spreadIndex === current;
@@ -1445,6 +1700,47 @@
         tabs.forEach((tab, tabIndex) => {
           tab.setAttribute("aria-current", tabIndex === current ? "true" : "false");
         });
+        if (spreads[current].querySelector("#chongqingMap")) {
+          window.setTimeout(initChongqingMap, 80);
+        }
+      };
+
+      const showSpread = (index, animate = true) => {
+        const target = Math.max(0, Math.min(index, spreads.length - 1));
+        if (target === current || turning) return;
+
+        if (!animate) {
+          setSpread(target);
+          return;
+        }
+
+        turning = true;
+        const direction = target > current ? "next" : "prev";
+        const currentSpread = spreads[current];
+        const targetSpread = spreads[target];
+
+        book.classList.add(`is-turning-${direction}`);
+        currentSpread.classList.add(`turn-out-${direction}`);
+
+        window.setTimeout(() => {
+          currentSpread.classList.remove(`turn-out-${direction}`, "is-active");
+          currentSpread.hidden = true;
+          targetSpread.hidden = false;
+          targetSpread.classList.add("is-active", `turn-in-${direction}`);
+          current = target;
+          tabs.forEach((tab, tabIndex) => {
+            tab.setAttribute("aria-current", tabIndex === current ? "true" : "false");
+          });
+          if (targetSpread.querySelector("#chongqingMap")) {
+            window.setTimeout(initChongqingMap, 120);
+          }
+        }, turnSwapDelay);
+
+        window.setTimeout(() => {
+          targetSpread.classList.remove(`turn-in-${direction}`);
+          book.classList.remove("is-turning-next", "is-turning-prev");
+          turning = false;
+        }, turnDuration);
       };
 
       const hideIntro = () => {
@@ -1482,7 +1778,7 @@
 
       document.getElementById("skipIntro").addEventListener("click", hideIntro);
 
-      showSpread(0);
+      setSpread(0);
       playIntro();
     })();
   </script>
