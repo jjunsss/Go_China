@@ -2,8 +2,15 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Go China 2026 Travel Book</title>
+  <meta name="description" content="2026.07.11-07.19 서울 · 청두 · 충칭 여행 준비서. 입국, 결제, 준비물, 충칭 지도와 영상 레퍼런스를 책처럼 넘기며 확인하세요.">
+  <meta name="theme-color" content="#2b1618">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Go China 2026 Travel Book">
+  <meta property="og:description" content="2026.07.11-07.19 서울 · 청두 · 충칭 여행 준비서 공유본">
+  <meta property="og:url" content="https://jjunsss.github.io/Go_China/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232b1618%22/%3E%3Ctext x=%2250%22 y=%2263%22 text-anchor=%22middle%22 font-size=%2238%22 fill=%22%23fff8e8%22 font-family=%22Georgia%22%3EGC%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/leaflet/leaflet.css">
   <style>
     @font-face {
@@ -54,8 +61,9 @@
       min-height: 100vh;
       color: var(--ink);
       background:
-        linear-gradient(115deg, rgba(11, 18, 27, 0.94), rgba(49, 30, 28, 0.88) 55%, rgba(17, 54, 57, 0.9)),
-        url("https://i.ytimg.com/vi/yzl4jc9E5GU/maxresdefault.jpg") center / cover fixed;
+        radial-gradient(1100px 540px at 12% -8%, rgba(184, 120, 37, 0.18), transparent 60%),
+        radial-gradient(960px 560px at 88% 108%, rgba(23, 74, 78, 0.5), transparent 62%),
+        linear-gradient(115deg, #0b121b, #311e1c 55%, #113639);
       font-family: var(--book-font);
       line-height: 1.5;
       overflow-x: hidden;
@@ -81,6 +89,17 @@
 
     button {
       cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    button:disabled {
+      opacity: 0.38;
+      cursor: default;
+      pointer-events: none;
     }
 
     a {
@@ -125,8 +144,8 @@
       place-items: center;
       padding: 24px;
       background:
-        linear-gradient(120deg, rgba(12, 18, 24, 0.96), rgba(75, 34, 35, 0.96)),
-        url("https://i.ytimg.com/vi/tMzCwwvHwN0/maxresdefault.jpg") center / cover;
+        radial-gradient(900px 620px at 70% 18%, rgba(184, 120, 37, 0.22), transparent 60%),
+        linear-gradient(120deg, #0c1218, #4b2223 72%, #321a1c);
       color: #fff8e8;
       transition: opacity 680ms ease, visibility 680ms ease;
     }
@@ -436,6 +455,35 @@
       margin-bottom: 10px;
     }
 
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 10px;
+      color: rgba(255, 248, 232, 0.78);
+      font-family: var(--ui-font);
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255, 248, 232, 0.16);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      display: block;
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold), #e0b365);
+      transition: width 420ms ease;
+    }
+
     .page-tabs {
       display: flex;
       gap: 8px;
@@ -444,6 +492,8 @@
       overflow-x: auto;
       scrollbar-width: thin;
       padding: 2px 0 8px;
+      -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+      mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
     }
 
     .tab {
@@ -632,6 +682,16 @@
       color: #392419;
     }
 
+    .page h2::after {
+      content: "";
+      display: block;
+      width: 44px;
+      height: 3px;
+      margin-top: 10px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(184, 120, 37, 0.22));
+    }
+
     .page h3 {
       margin: 20px 0 8px;
       font-size: 1.02rem;
@@ -773,6 +833,79 @@
     .flight-times dd {
       margin: 0;
       color: #3d332a;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: auto minmax(40px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      margin: 4px 0 12px;
+    }
+
+    .route-point strong {
+      display: block;
+      color: #2f1f15;
+      font-size: 1.7rem;
+      line-height: 1.05;
+      font-family: Georgia, serif;
+    }
+
+    .route-point span {
+      display: block;
+      margin-top: 3px;
+      color: #6f5f51;
+      font-size: 0.85rem;
+    }
+
+    .route-point.arrive {
+      text-align: right;
+    }
+
+    .route-line {
+      position: relative;
+      height: 0;
+      border-top: 2px dashed rgba(111, 67, 38, 0.38);
+    }
+
+    .route-line::before,
+    .route-line::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .route-line::before {
+      left: -2px;
+    }
+
+    .route-line::after {
+      right: -2px;
+    }
+
+    .route-plane {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0 7px;
+      color: #704326;
+      background: #fdf3da;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .flight-meta {
+      margin: 0;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(87, 60, 35, 0.28);
+      color: #6f5f51;
+      font-size: 0.88rem;
     }
 
     .mini-note {
@@ -928,6 +1061,31 @@
       display: block;
       margin-bottom: 3px;
       color: #352219;
+    }
+
+    .map-wrap {
+      position: relative;
+    }
+
+    .map-lock {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 800;
+      display: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(103, 72, 38, 0.3);
+      border-radius: 999px;
+      color: #352219;
+      background: rgba(255, 248, 232, 0.95);
+      font-family: var(--ui-font);
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: var(--small-shadow);
+    }
+
+    .map-wrap.is-touch .map-lock {
+      display: inline-block;
     }
 
     .map-panel {
@@ -1199,6 +1357,14 @@
         grid-template-columns: 72px minmax(0, 1fr);
       }
 
+      .route-point strong {
+        font-size: 1.45rem;
+      }
+
+      .progress-wrap {
+        font-size: 0.8rem;
+      }
+
       .map-panel {
         min-height: 340px;
       }
@@ -1319,6 +1485,11 @@
         </div>
       </div>
 
+      <div class="progress-wrap">
+        <span id="progressLabel">1 / 7 · 목차</span>
+        <span class="progress-track"><span class="progress-fill" id="progressFill"></span></span>
+      </div>
+
       <div class="book" id="book" aria-live="polite">
         <article class="spread is-active" data-title="목차">
           <section class="page left">
@@ -1349,30 +1520,26 @@
               <div class="ticket">
                 <div class="ticket-top">
                   <strong>서울 → 청두</strong>
-                  <span>2026.07.11</span>
+                  <span>2026.07.11 · 3U3974</span>
                 </div>
-                <dl class="flight-times">
-                  <dt>14:50</dt>
-                  <dd>ICN 인천국제공항 T1</dd>
-                  <dt>3U3974</dt>
-                  <dd>쓰촨항공, 일반석, Airbus A321, 스낵</dd>
-                  <dt>17:40</dt>
-                  <dd>TFU 청두 톈푸 국제공항 T1</dd>
-                </dl>
+                <div class="route">
+                  <div class="route-point"><strong>14:50</strong><span>ICN 인천국제공항 T1</span></div>
+                  <div class="route-line"><span class="route-plane">✈</span></div>
+                  <div class="route-point arrive"><strong>17:40</strong><span>TFU 청두 톈푸 T1</span></div>
+                </div>
+                <p class="flight-meta">쓰촨항공 · 일반석 · Airbus A321 · 스낵</p>
               </div>
               <div class="ticket">
                 <div class="ticket-top">
                   <strong>충칭 → 서울</strong>
-                  <span>2026.07.19</span>
+                  <span>2026.07.19 · OZ354</span>
                 </div>
-                <dl class="flight-times">
-                  <dt>02:15</dt>
-                  <dd>CKG 충칭 장베이 국제공항 T3</dd>
-                  <dt>OZ354</dt>
-                  <dd>아시아나항공, 일반석 T, Airbus A321neo, 기내식</dd>
-                  <dt>06:35</dt>
-                  <dd>ICN 인천국제공항 T2</dd>
-                </dl>
+                <div class="route">
+                  <div class="route-point"><strong>02:15</strong><span>CKG 충칭 장베이 T3</span></div>
+                  <div class="route-line"><span class="route-plane">✈</span></div>
+                  <div class="route-point arrive"><strong>06:35</strong><span>ICN 인천국제공항 T2</span></div>
+                </div>
+                <p class="flight-meta">아시아나항공 · 일반석 T · Airbus A321neo · 기내식</p>
               </div>
             </div>
             <p class="mini-note">모든 출발·도착 시간은 현지시간 기준입니다.</p>
@@ -1584,7 +1751,10 @@
           <section class="page left">
             <p class="eyebrow">Chongqing Map</p>
             <h2>충칭 핵심 지점</h2>
-            <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
+            <div class="map-wrap">
+              <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
+              <button class="map-lock" type="button" id="mapLock" aria-pressed="false">지도 이동 켜기</button>
+            </div>
             <div class="map-legend">
               <span><i class="map-dot">1</i><span class="map-name"><strong>홍야동</strong><em>Hongya Cave / Hongyadong · 洪崖洞</em><small>29.5650738, 106.5753425</small></span></span>
               <span><i class="map-dot">2</i><span class="map-name"><strong>해방비</strong><em>Jiefangbei Monument · 抗战胜利纪功碑暨人民解放纪念碑</em><small>29.5601096, 106.5733569</small></span></span>
@@ -1667,8 +1837,16 @@
     (() => {
       const spreads = [...document.querySelectorAll(".spread")];
       const tabs = [...document.querySelectorAll(".tab")];
+      const tabsContainer = document.querySelector(".page-tabs");
       const intro = document.getElementById("intro");
       const book = document.getElementById("book");
+      const progressLabel = document.getElementById("progressLabel");
+      const progressFill = document.getElementById("progressFill");
+      const indexDock = document.getElementById("indexDock");
+      const prevButtons = ["prevTop", "prevPage", "prevDock"].map((id) => document.getElementById(id));
+      const nextButtons = ["nextTop", "nextPage", "nextDock"].map((id) => document.getElementById(id));
+      const slugs = ["index", "entry", "payment", "packing", "videos", "map", "emergency"];
+      const titles = ["목차", "입국과 세관", "결제와 네트워크", "필수 준비물", "충칭 영상 책갈피", "충칭 지도와 조사 노트", "비상 연락과 출처"];
       const turnDuration = 980;
       const turnSwapDelay = 520;
       let current = 0;
@@ -1690,10 +1868,29 @@
         if (!mapEl || mapReady || !window.L) return;
         mapReady = true;
 
+        const touchDevice = window.matchMedia("(pointer: coarse)").matches;
         const map = L.map(mapEl, {
           scrollWheelZoom: false,
-          zoomControl: true
+          zoomControl: true,
+          dragging: !touchDevice
         });
+
+        const mapWrap = mapEl.closest(".map-wrap");
+        const lockButton = document.getElementById("mapLock");
+        if (touchDevice && mapWrap && lockButton) {
+          mapWrap.classList.add("is-touch");
+          lockButton.addEventListener("click", () => {
+            if (map.dragging.enabled()) {
+              map.dragging.disable();
+              lockButton.textContent = "지도 이동 켜기";
+              lockButton.setAttribute("aria-pressed", "false");
+            } else {
+              map.dragging.enable();
+              lockButton.textContent = "지도 이동 중 · 다시 잠그기";
+              lockButton.setAttribute("aria-pressed", "true");
+            }
+          });
+        }
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
@@ -1729,6 +1926,37 @@
         window.setTimeout(() => map.invalidateSize(), 120);
       };
 
+      const revealActiveTab = () => {
+        const tab = tabs[current];
+        if (!tab || !tabsContainer) return;
+        const target = tab.offsetLeft - (tabsContainer.clientWidth - tab.offsetWidth) / 2;
+        tabsContainer.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+      };
+
+      const updateChrome = () => {
+        tabs.forEach((tab, tabIndex) => {
+          tab.setAttribute("aria-current", tabIndex === current ? "true" : "false");
+        });
+        revealActiveTab();
+        if (progressLabel) progressLabel.textContent = `${current + 1} / ${spreads.length} · ${titles[current]}`;
+        if (progressFill) progressFill.style.width = `${((current + 1) / spreads.length) * 100}%`;
+        prevButtons.forEach((button) => { if (button) button.disabled = current === 0; });
+        nextButtons.forEach((button) => { if (button) button.disabled = current === spreads.length - 1; });
+        if (indexDock) indexDock.textContent = current === 0 ? "목차" : `목차 · ${current + 1}/${spreads.length}`;
+        if (window.history.replaceState) {
+          const cleanUrl = window.location.pathname + window.location.search;
+          window.history.replaceState(null, "", current === 0 ? cleanUrl : `#${slugs[current]}`);
+        }
+        document.title = current === 0 ? "Go China 2026 Travel Book" : `${titles[current]} — Go China 2026`;
+      };
+
+      const scrollBookIntoView = () => {
+        const top = book.getBoundingClientRect().top;
+        if (top < -8) {
+          window.scrollTo({ top: window.scrollY + top - 72, behavior: "smooth" });
+        }
+      };
+
       const setSpread = (index) => {
         current = Math.max(0, Math.min(index, spreads.length - 1));
         spreads.forEach((spread, spreadIndex) => {
@@ -1736,9 +1964,7 @@
           spread.hidden = !active;
           spread.classList.toggle("is-active", active);
         });
-        tabs.forEach((tab, tabIndex) => {
-          tab.setAttribute("aria-current", tabIndex === current ? "true" : "false");
-        });
+        updateChrome();
         if (spreads[current].querySelector("#chongqingMap")) {
           window.setTimeout(initChongqingMap, 80);
         }
@@ -1760,6 +1986,7 @@
 
         book.classList.add(`is-turning-${direction}`);
         currentSpread.classList.add(`turn-out-${direction}`);
+        scrollBookIntoView();
 
         window.setTimeout(() => {
           currentSpread.classList.remove(`turn-out-${direction}`, "is-active");
@@ -1767,9 +1994,7 @@
           targetSpread.hidden = false;
           targetSpread.classList.add("is-active", `turn-in-${direction}`);
           current = target;
-          tabs.forEach((tab, tabIndex) => {
-            tab.setAttribute("aria-current", tabIndex === current ? "true" : "false");
-          });
+          updateChrome();
           if (targetSpread.querySelector("#chongqingMap")) {
             window.setTimeout(initChongqingMap, 120);
           }
@@ -1782,11 +2007,26 @@
         }, turnDuration);
       };
 
+      const INTRO_KEY = "gc-intro-seen";
+      let introSeen = false;
+      try {
+        introSeen = window.localStorage.getItem(INTRO_KEY) === "1";
+      } catch (error) { /* 시크릿 모드 등에서 localStorage 차단 시 무시 */ }
+
+      const startIndex = Math.max(0, slugs.indexOf((window.location.hash || "").replace("#", "")));
+
       const hideIntro = () => {
         intro.classList.add("is-done");
+        try {
+          window.localStorage.setItem(INTRO_KEY, "1");
+        } catch (error) { /* 무시 */ }
       };
 
       const playIntro = () => {
+        if (introSeen || startIndex > 0) {
+          hideIntro();
+          return;
+        }
         window.requestAnimationFrame(() => {
           window.setTimeout(() => intro.classList.add("is-playing"), 120);
         });
@@ -1816,10 +2056,35 @@
       });
 
       document.getElementById("skipIntro").addEventListener("click", hideIntro);
+      intro.addEventListener("click", hideIntro);
 
-      setSpread(0);
+      window.addEventListener("hashchange", () => {
+        const idx = slugs.indexOf(window.location.hash.replace("#", ""));
+        if (idx >= 0 && idx !== current) showSpread(idx);
+      });
+
+      let touchX = 0;
+      let touchY = 0;
+      let touchValid = false;
+      book.addEventListener("touchstart", (event) => {
+        touchValid = event.touches.length === 1 && !event.target.closest(".map-wrap, iframe, a");
+        if (!touchValid) return;
+        touchX = event.touches[0].clientX;
+        touchY = event.touches[0].clientY;
+      }, { passive: true });
+      book.addEventListener("touchend", (event) => {
+        if (!touchValid) return;
+        const dx = event.changedTouches[0].clientX - touchX;
+        const dy = event.changedTouches[0].clientY - touchY;
+        if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+          showSpread(current + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+
+      setSpread(startIndex);
       playIntro();
     })();
   </script>
+  <!-- rev: ux-update 2026-06-10 -->
 </body>
 </html>
