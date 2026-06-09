@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -56,8 +56,7 @@
       opacity: 0.5;
     }
 
-    button,
-    input {
+    button {
       font: inherit;
     }
 
@@ -98,13 +97,19 @@
         linear-gradient(120deg, rgba(12, 18, 24, 0.96), rgba(75, 34, 35, 0.96)),
         url("https://i.ytimg.com/vi/tMzCwwvHwN0/maxresdefault.jpg") center / cover;
       color: #fff8e8;
-      transition: opacity 420ms ease, visibility 420ms ease;
+      transition: opacity 680ms ease, visibility 680ms ease;
     }
 
     .intro.is-done {
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
+    }
+
+    .intro:not(.is-done) + .app {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(22px) scale(0.985);
     }
 
     .intro-inner {
@@ -120,7 +125,7 @@
       aspect-ratio: 0.72;
       transform-style: preserve-3d;
       perspective: 1200px;
-      animation: bookZoom 2200ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+      animation: bookZoom 3400ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
     }
 
     .intro-pages,
@@ -154,7 +159,7 @@
         linear-gradient(135deg, #a13a3d, #5d2025 64%, #2b1518);
       border: 2px solid rgba(255, 231, 176, 0.38);
       transform-origin: left center;
-      animation: coverOpen 2200ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+      animation: coverOpen 3400ms cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
     }
 
     .intro-cover span {
@@ -196,19 +201,23 @@
     }
 
     @keyframes bookZoom {
-      0% { transform: translateY(48px) scale(0.62) rotateX(12deg) rotateZ(-4deg); }
-      46% { transform: translateY(0) scale(0.98) rotateX(0) rotateZ(0); }
-      100% { transform: translateY(-12px) scale(1.14) rotateX(0) rotateZ(0); }
+      0% { transform: translateY(52px) scale(0.58) rotateX(12deg) rotateZ(-4deg); }
+      28% { transform: translateY(0) scale(0.96) rotateX(0) rotateZ(0); }
+      64% { transform: translateY(-10px) scale(1.16) rotateX(0) rotateZ(0); }
+      100% { transform: translateY(-18px) scale(1.28) rotateX(0) rotateZ(0); }
     }
 
     @keyframes coverOpen {
-      0%, 42% { transform: rotateY(0deg); }
-      100% { transform: rotateY(-142deg); }
+      0%, 34% { transform: rotateY(0deg); }
+      100% { transform: rotateY(-148deg); }
     }
 
     .app {
       min-height: 100vh;
       padding: 22px clamp(14px, 3vw, 32px) 44px;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity 720ms ease, transform 720ms ease;
     }
 
     .topbar {
@@ -297,7 +306,7 @@
 
     .book-header {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr);
       gap: 16px;
       align-items: end;
       margin: 0 0 14px;
@@ -317,37 +326,6 @@
       margin: 12px 0 0;
       color: rgba(255, 248, 232, 0.78);
       font-size: clamp(1rem, 2vw, 1.18rem);
-    }
-
-    .progress {
-      width: min(330px, 100%);
-      padding: 12px;
-      border: 1px solid rgba(255, 248, 232, 0.18);
-      border-radius: 8px;
-      background: rgba(12, 18, 24, 0.62);
-      box-shadow: var(--small-shadow);
-    }
-
-    .progress-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-      font-size: 0.92rem;
-    }
-
-    .progress-track {
-      height: 10px;
-      overflow: hidden;
-      background: rgba(255, 248, 232, 0.18);
-      border-radius: 999px;
-    }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #d95d39, #e7b44d, #1d9a76);
-      transition: width 240ms ease;
     }
 
     .book-controls {
@@ -538,7 +516,7 @@
     .ticket-grid,
     .note-grid,
     .video-grid,
-    .check-grid {
+    .prep-grid {
       display: grid;
       gap: 12px;
     }
@@ -669,41 +647,46 @@
       font-size: 0.93rem;
     }
 
-    .check-grid {
+    .prep-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .check-section h3 {
+    .prep-section h3 {
       margin-top: 0;
     }
 
-    .checks {
+    .prep-list {
       display: grid;
       gap: 8px;
     }
 
-    .check {
+    .prep-item {
       display: grid;
-      grid-template-columns: 22px minmax(0, 1fr);
-      gap: 9px;
+      grid-template-columns: minmax(0, 1fr);
       align-items: start;
+      position: relative;
       padding: 9px 0;
+      padding-left: 18px;
       border-bottom: 1px solid rgba(103, 72, 38, 0.12);
       color: #3e3329;
     }
 
-    .check input {
-      width: 18px;
-      height: 18px;
-      margin: 2px 0 0;
-      accent-color: var(--jade);
+    .prep-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(111, 67, 38, 0.45);
     }
 
-    .check span {
+    .prep-item span {
       min-width: 0;
     }
 
-    .check small {
+    .prep-item small {
       display: block;
       margin-top: 2px;
       color: #7d6d5d;
@@ -820,10 +803,6 @@
         grid-template-columns: 1fr;
       }
 
-      .progress {
-        width: 100%;
-      }
-
       .spread {
         grid-template-columns: 1fr;
       }
@@ -880,7 +859,7 @@
 
       .stamp-grid,
       .note-grid.two,
-      .check-grid {
+      .prep-grid {
         grid-template-columns: 1fr;
       }
 
@@ -916,8 +895,8 @@
         <div class="intro-spine"></div>
       </div>
       <h1 class="intro-title">2026 중국 여행 준비서</h1>
-      <p class="intro-copy">서울, 청두, 충칭. 책을 펼치면 목차부터 체크리스트까지 이어집니다.</p>
-      <button class="intro-skip" type="button" id="skipIntro">바로 펼치기</button>
+      <p class="intro-copy">서울 · 청두 · 충칭</p>
+      <button class="intro-skip" type="button" id="skipIntro">열기</button>
     </div>
   </div>
 
@@ -929,7 +908,6 @@
       </div>
       <div class="top-actions">
         <a class="pill" href="https://jjunsss.github.io/Go_China/" target="_blank" rel="noreferrer">공유 링크</a>
-        <button class="pill" type="button" id="resetChecks">체크 초기화</button>
         <button class="icon-button" type="button" id="prevTop" aria-label="이전 페이지">←</button>
         <button class="icon-button" type="button" id="nextTop" aria-label="다음 페이지">→</button>
       </div>
@@ -939,16 +917,7 @@
       <div class="book-header">
         <div>
           <h1>China<br>Travel Book</h1>
-          <p>목차에서 필요한 장을 열고, 준비물은 각자 브라우저에 체크 상태가 저장됩니다. 동행자는 같은 GitHub Pages 링크로 보고 각자 체크하면 됩니다.</p>
-        </div>
-        <div class="progress" aria-live="polite">
-          <div class="progress-row">
-            <strong>준비 진행률</strong>
-            <span id="progressText">0 / 0</span>
-          </div>
-          <div class="progress-track" aria-hidden="true">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
+          <p>2026년 7월, 서울에서 청두로 들어가 충칭에서 돌아오는 여행 준비 노트.</p>
         </div>
       </div>
 
@@ -977,14 +946,14 @@
             <ol class="index-list">
               <li class="index-item"><button type="button" data-jump="1">입국과 세관</button><span class="index-line"></span><span>p.03</span></li>
               <li class="index-item"><button type="button" data-jump="2">결제와 네트워크</button><span class="index-line"></span><span>p.05</span></li>
-              <li class="index-item"><button type="button" data-jump="3">필수 준비물 체크</button><span class="index-line"></span><span>p.07</span></li>
+              <li class="index-item"><button type="button" data-jump="3">필수 준비물</button><span class="index-line"></span><span>p.07</span></li>
               <li class="index-item"><button type="button" data-jump="4">충칭 영상 책갈피</button><span class="index-line"></span><span>p.09</span></li>
               <li class="index-item"><button type="button" data-jump="5">도시별 메모</button><span class="index-line"></span><span>p.11</span></li>
               <li class="index-item"><button type="button" data-jump="6">비상 연락과 출처</button><span class="index-line"></span><span>p.13</span></li>
             </ol>
             <div class="stamp-grid">
               <div class="stamp"><strong>8박</strong><span>2026.07.11 출국, 07.19 귀국</span></div>
-              <div class="stamp"><strong>3명+</strong><span>공유 링크로 동행자별 체크 가능</span></div>
+              <div class="stamp"><strong>3명+</strong><span>동행자와 함께 보는 준비서</span></div>
               <div class="stamp"><strong>ICN</strong><span>인천 출발, 청두 도착</span></div>
               <div class="stamp"><strong>CKG</strong><span>충칭 출발, 인천 도착</span></div>
             </div>
@@ -1037,11 +1006,11 @@
               <strong>한국 일반여권이면 이번 일정은 무비자 가능 범위입니다.</strong>
               관광 목적 30일 이내 체류는 중국 단기 무비자 대상에 포함되어 있습니다. 이번 일정은 2026년 7월 11일 입국, 7월 19일 출국이라 기간상 여유가 있습니다.
             </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" data-item="passport-valid"><span>여권 유효기간 확인<small>항공사·입국 심사 기준을 고려해 최소 6개월 이상 남기기.</small></span></label>
-              <label class="check"><input type="checkbox" data-item="flight-print"><span>왕복 항공권 캡처 및 오프라인 저장<small>입국 목적 확인 시 바로 보여줄 수 있게 준비.</small></span></label>
-              <label class="check"><input type="checkbox" data-item="hotel-address-cn"><span>숙소 주소 중국어로 저장<small>호텔명, 주소, 전화번호를 캡처해두기.</small></span></label>
-              <label class="check"><input type="checkbox" data-item="calendar-events"><span>비행 일정 캘린더 등록 확인<small>출발·도착 터미널과 현지시간 기준으로 확인.</small></span></label>
+            <div class="prep-list">
+              <div class="prep-item"><span>여권 유효기간 확인<small>항공사·입국 심사 기준을 고려해 최소 6개월 이상 남기기.</small></span></div>
+              <div class="prep-item"><span>왕복 항공권 캡처 및 오프라인 저장<small>입국 목적 확인 시 바로 보여줄 수 있게 준비.</small></span></div>
+              <div class="prep-item"><span>숙소 주소 중국어로 저장<small>호텔명, 주소, 전화번호를 캡처해두기.</small></span></div>
+              <div class="prep-item"><span>비행 일정 캘린더 등록 확인<small>출발·도착 터미널과 현지시간 기준으로 확인.</small></span></div>
             </div>
             <h3>숙박 등록</h3>
             <p>호텔 숙박은 보통 호텔이 여권 정보로 등록합니다. 호텔이 아닌 숙소, 지인 집, 일부 민박은 도착 후 24시간 내 현지 공안기관 등록이 필요할 수 있습니다.</p>
@@ -1073,10 +1042,10 @@
               <strong>주의할 물품</strong>
               동식물, 육가공품, 대량 화장품·전자기기, 촬영 장비, 고가품은 입국 시 설명이나 신고가 필요할 수 있습니다.
             </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" data-item="medicine-docs"><span>복용약 원포장·처방전 준비</span></label>
-              <label class="check"><input type="checkbox" data-item="powerbank-ccc"><span>보조배터리 용량·CCC 표시 확인</span></label>
-              <label class="check"><input type="checkbox" data-item="customs-threshold"><span>현금·주류·담배 신고 기준 확인</span></label>
+            <div class="prep-list">
+              <div class="prep-item"><span>복용약 원포장·처방전 준비</span></div>
+              <div class="prep-item"><span>보조배터리 용량·CCC 표시 확인</span></div>
+              <div class="prep-item"><span>현금·주류·담배 신고 기준 확인</span></div>
             </div>
             <span class="page-number">4</span>
           </section>
@@ -1091,11 +1060,11 @@
               <strong>추천 조합</strong>
               Alipay 또는 WeChat Pay에 해외카드 연결, Toss Pay·Kakao Pay·Naver Pay의 Alipay+ 가맹점 결제, 실물 카드, 소액 현금을 같이 준비합니다.
             </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" data-item="alipay-card"><span>Alipay 앱 설치 및 해외카드 연결 테스트<small>여권 실명 인증이 필요할 수 있습니다.</small></span></label>
-              <label class="check"><input type="checkbox" data-item="wechat-card"><span>WeChat Pay 카드 연결 또는 보조 결제수단 준비</span></label>
-              <label class="check"><input type="checkbox" data-item="toss-pay-check"><span>Toss Pay 해외 현장결제 메뉴 확인<small>Alipay+ 또는 Toss Pay 로고 가맹점에서 QR/바코드 결제 가능 여부 확인.</small></span></label>
-              <label class="check"><input type="checkbox" data-item="cash-cny"><span>소액 위안화 현금 준비<small>택시·소형 매장·앱 오류 대비용.</small></span></label>
+            <div class="prep-list">
+              <div class="prep-item"><span>Alipay 앱 설치 및 해외카드 연결 테스트<small>여권 실명 인증이 필요할 수 있습니다.</small></span></div>
+              <div class="prep-item"><span>WeChat Pay 카드 연결 또는 보조 결제수단 준비</span></div>
+              <div class="prep-item"><span>Toss Pay 해외 현장결제 메뉴 확인<small>Alipay+ 또는 Toss Pay 로고 가맹점에서 QR/바코드 결제 가능 여부 확인.</small></span></div>
+              <div class="prep-item"><span>소액 위안화 현금 준비<small>택시·소형 매장·앱 오류 대비용.</small></span></div>
             </div>
             <span class="page-number">5</span>
           </section>
@@ -1121,11 +1090,11 @@
                 <p>오프라인 중국어 번역팩과 메뉴판 사진 번역 앱을 준비합니다.</p>
               </div>
             </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" data-item="esim-roaming"><span>eSIM 또는 로밍 개통 일정 확인</span></label>
-              <label class="check"><input type="checkbox" data-item="vpn-ready"><span>VPN 로그인·2단계 인증 백업 완료</span></label>
-              <label class="check"><input type="checkbox" data-item="maps-cn"><span>지도 앱에 호텔·공항·핵심 스팟 저장</span></label>
-              <label class="check"><input type="checkbox" data-item="translation-offline"><span>중국어 오프라인 번역팩 다운로드</span></label>
+            <div class="prep-list">
+              <div class="prep-item"><span>eSIM 또는 로밍 개통 일정 확인</span></div>
+              <div class="prep-item"><span>VPN 로그인·2단계 인증 백업 완료</span></div>
+              <div class="prep-item"><span>지도 앱에 호텔·공항·핵심 스팟 저장</span></div>
+              <div class="prep-item"><span>중국어 오프라인 번역팩 다운로드</span></div>
             </div>
             <span class="page-number">6</span>
           </section>
@@ -1135,25 +1104,25 @@
           <section class="page left">
             <p class="eyebrow">Packing</p>
             <h2>필수 준비물</h2>
-            <div class="check-grid">
-              <div class="check-section">
+            <div class="prep-grid">
+              <div class="prep-section">
                 <h3>문서</h3>
-                <div class="checks">
-                  <label class="check"><input type="checkbox" data-item="doc-passport"><span>여권 원본</span></label>
-                  <label class="check"><input type="checkbox" data-item="doc-passport-copy"><span>여권 사본 및 사진 파일</span></label>
-                  <label class="check"><input type="checkbox" data-item="doc-insurance"><span>여행자보험 증서</span></label>
-                  <label class="check"><input type="checkbox" data-item="doc-hotel"><span>숙소 예약 확인서</span></label>
-                  <label class="check"><input type="checkbox" data-item="doc-flight"><span>항공권 e-ticket</span></label>
+                <div class="prep-list">
+                  <div class="prep-item"><span>여권 원본</span></div>
+                  <div class="prep-item"><span>여권 사본 및 사진 파일</span></div>
+                  <div class="prep-item"><span>여행자보험 증서</span></div>
+                  <div class="prep-item"><span>숙소 예약 확인서</span></div>
+                  <div class="prep-item"><span>항공권 e-ticket</span></div>
                 </div>
               </div>
-              <div class="check-section">
+              <div class="prep-section">
                 <h3>결제</h3>
-                <div class="checks">
-                  <label class="check"><input type="checkbox" data-item="pay-card1"><span>해외결제 가능 카드 1</span></label>
-                  <label class="check"><input type="checkbox" data-item="pay-card2"><span>예비 카드 1장</span></label>
-                  <label class="check"><input type="checkbox" data-item="pay-apps"><span>Alipay, WeChat, Toss Pay 확인</span></label>
-                  <label class="check"><input type="checkbox" data-item="pay-cash"><span>비상 현금</span></label>
-                  <label class="check"><input type="checkbox" data-item="pay-bank-alert"><span>카드 해외사용 알림 켜기</span></label>
+                <div class="prep-list">
+                  <div class="prep-item"><span>해외결제 가능 카드 1</span></div>
+                  <div class="prep-item"><span>예비 카드 1장</span></div>
+                  <div class="prep-item"><span>Alipay, WeChat, Toss Pay 확인</span></div>
+                  <div class="prep-item"><span>비상 현금</span></div>
+                  <div class="prep-item"><span>카드 해외사용 알림 켜기</span></div>
                 </div>
               </div>
             </div>
@@ -1163,25 +1132,25 @@
           <section class="page right">
             <p class="eyebrow">Gear</p>
             <h2>가져갈 것들</h2>
-            <div class="check-grid">
-              <div class="check-section">
+            <div class="prep-grid">
+              <div class="prep-section">
                 <h3>전자기기</h3>
-                <div class="checks">
-                  <label class="check"><input type="checkbox" data-item="gear-adapter"><span>멀티 어댑터</span></label>
-                  <label class="check"><input type="checkbox" data-item="gear-cables"><span>C타입·라이트닝 케이블</span></label>
-                  <label class="check"><input type="checkbox" data-item="gear-powerbank"><span>보조배터리</span></label>
-                  <label class="check"><input type="checkbox" data-item="gear-earbuds"><span>이어폰</span></label>
-                  <label class="check"><input type="checkbox" data-item="gear-camera"><span>카메라·짐벌·충전기</span></label>
+                <div class="prep-list">
+                  <div class="prep-item"><span>멀티 어댑터</span></div>
+                  <div class="prep-item"><span>C타입·라이트닝 케이블</span></div>
+                  <div class="prep-item"><span>보조배터리</span></div>
+                  <div class="prep-item"><span>이어폰</span></div>
+                  <div class="prep-item"><span>카메라·짐벌·충전기</span></div>
                 </div>
               </div>
-              <div class="check-section">
+              <div class="prep-section">
                 <h3>건강·생활</h3>
-                <div class="checks">
-                  <label class="check"><input type="checkbox" data-item="life-medicine"><span>상비약, 소화제, 진통제</span></label>
-                  <label class="check"><input type="checkbox" data-item="life-mask"><span>마스크와 손소독제</span></label>
-                  <label class="check"><input type="checkbox" data-item="life-rain"><span>우산 또는 가벼운 우비</span></label>
-                  <label class="check"><input type="checkbox" data-item="life-shoes"><span>많이 걸을 신발</span></label>
-                  <label class="check"><input type="checkbox" data-item="life-bag"><span>여권용 작은 크로스백</span></label>
+                <div class="prep-list">
+                  <div class="prep-item"><span>상비약, 소화제, 진통제</span></div>
+                  <div class="prep-item"><span>마스크와 손소독제</span></div>
+                  <div class="prep-item"><span>우산 또는 가벼운 우비</span></div>
+                  <div class="prep-item"><span>많이 걸을 신발</span></div>
+                  <div class="prep-item"><span>여권용 작은 크로스백</span></div>
                 </div>
               </div>
             </div>
@@ -1266,9 +1235,9 @@
               <div class="note"><strong>영사콜센터</strong><p>한국에서 +82-2-3210-0404, 해외 안전 관련 상담 가능</p></div>
               <div class="note"><strong>분실 대비</strong><p>여권 사진면, 항공권, 보험, 호텔 바우처를 클라우드와 기기 안에 둘 다 저장합니다.</p></div>
             </div>
-            <div class="checks">
-              <label class="check"><input type="checkbox" data-item="emergency-calls"><span>비상 연락처 휴대폰·종이 둘 다 저장</span></label>
-              <label class="check"><input type="checkbox" data-item="cloud-backup"><span>여권·보험·항공권 클라우드 백업</span></label>
+            <div class="prep-list">
+              <div class="prep-item"><span>비상 연락처 휴대폰·종이 둘 다 저장</span></div>
+              <div class="prep-item"><span>여권·보험·항공권 클라우드 백업</span></div>
             </div>
             <span class="page-number">13</span>
           </section>
@@ -1292,7 +1261,7 @@
       </div>
 
       <div class="book-footer">
-        <span>체크 상태는 이 기기의 브라우저에 저장됩니다.</span>
+        <span>2026.07.11-07.19</span>
         <button type="button" id="backToIndex">목차로 돌아가기</button>
       </div>
     </section>
@@ -1300,37 +1269,10 @@
 
   <script>
     (() => {
-      const storageKey = "go-china-2026-book-checks";
       const spreads = [...document.querySelectorAll(".spread")];
       const tabs = [...document.querySelectorAll(".tab")];
-      const checks = [...document.querySelectorAll("input[type='checkbox'][data-item]")];
-      const progressText = document.getElementById("progressText");
-      const progressFill = document.getElementById("progressFill");
       const intro = document.getElementById("intro");
       let current = 0;
-
-      const readState = () => {
-        try {
-          return JSON.parse(localStorage.getItem(storageKey) || "{}");
-        } catch {
-          return {};
-        }
-      };
-
-      const writeState = () => {
-        const state = {};
-        checks.forEach((check) => {
-          state[check.dataset.item] = check.checked;
-        });
-        localStorage.setItem(storageKey, JSON.stringify(state));
-      };
-
-      const updateProgress = () => {
-        const done = checks.filter((check) => check.checked).length;
-        const total = checks.length;
-        progressText.textContent = `${done} / ${total}`;
-        progressFill.style.width = total ? `${Math.round((done / total) * 100)}%` : "0%";
-      };
 
       const showSpread = (index) => {
         current = Math.max(0, Math.min(index, spreads.length - 1));
@@ -1346,17 +1288,7 @@
 
       const hideIntro = () => {
         intro.classList.add("is-done");
-        sessionStorage.setItem("go-china-intro-seen", "true");
       };
-
-      const state = readState();
-      checks.forEach((check) => {
-        check.checked = Boolean(state[check.dataset.item]);
-        check.addEventListener("change", () => {
-          writeState();
-          updateProgress();
-        });
-      });
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => showSpread(Number(tab.dataset.spread)));
@@ -1371,13 +1303,6 @@
       document.getElementById("prevTop").addEventListener("click", () => showSpread(current - 1));
       document.getElementById("nextTop").addEventListener("click", () => showSpread(current + 1));
       document.getElementById("backToIndex").addEventListener("click", () => showSpread(0));
-      document.getElementById("resetChecks").addEventListener("click", () => {
-        checks.forEach((check) => {
-          check.checked = false;
-        });
-        writeState();
-        updateProgress();
-      });
 
       document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") showSpread(current - 1);
@@ -1385,14 +1310,9 @@
       });
 
       document.getElementById("skipIntro").addEventListener("click", hideIntro);
-      if (sessionStorage.getItem("go-china-intro-seen") === "true") {
-        hideIntro();
-      } else {
-        window.setTimeout(hideIntro, 2600);
-      }
+      window.setTimeout(hideIntro, 3800);
 
       showSpread(0);
-      updateProgress();
     })();
   </script>
 </body>
