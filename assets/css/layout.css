@@ -1,0 +1,152 @@
+/* layout.css — 앱 프레임: 헤더, 탭, 진행 표시, 푸터 */
+
+.app {
+  min-height: 100vh;
+  padding: 26px clamp(14px, 3vw, 32px) 48px;
+  opacity: 1;
+  transition: opacity 720ms ease;
+}
+
+.book-wrap {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+}
+
+.book-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 4px 0 20px;
+  color: var(--cream);
+}
+
+.seal {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: clamp(46px, 5vw, 58px);
+  height: clamp(46px, 5vw, 58px);
+  border-radius: 11px;
+  color: #f8eed6;
+  background: linear-gradient(150deg, #c14a36, #8e2a1f);
+  box-shadow: inset 0 0 0 2px rgba(248, 238, 214, 0.26), 0 10px 22px rgba(0, 0, 0, 0.35);
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  font-weight: 700;
+  transform: rotate(-3deg);
+}
+
+.header-kicker {
+  margin: 0 0 5px;
+  color: rgba(243, 233, 210, 0.6);
+  font-family: var(--ui-font);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.book-header h1 {
+  margin: 0;
+  font-size: clamp(1.85rem, 4.2vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: 0.01em;
+}
+
+.book-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  color: rgba(243, 233, 210, 0.62);
+  font-family: var(--ui-font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(243, 233, 210, 0.14);
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--gold), #dcae5c);
+  transition: width 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.page-tabs {
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding: 2px 0 8px;
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+}
+
+.tab {
+  flex: 0 0 auto;
+  border: 1px solid rgba(243, 233, 210, 0.2);
+  border-radius: 999px;
+  padding: 9px 15px;
+  color: rgba(243, 233, 210, 0.72);
+  background: rgba(243, 233, 210, 0.06);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.tab:hover {
+  color: var(--cream);
+  border-color: rgba(243, 233, 210, 0.5);
+  background: rgba(243, 233, 210, 0.12);
+  transform: translateY(-1px);
+}
+
+.tab[aria-current="true"] {
+  color: #241a12;
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+.book-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  color: rgba(243, 233, 210, 0.55);
+  font-family: var(--ui-font);
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+}
+
+.book-footer button {
+  border: 0;
+  padding: 0;
+  color: var(--cream);
+  background: transparent;
+  font-size: 0.84rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(185, 132, 46, 0.6);
+}

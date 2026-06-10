@@ -1,0 +1,182 @@
+/* book.css — 책 본체, 페이지(종이), 낱장 페이지 턴 3D 애니메이션 */
+
+.book {
+  position: relative;
+  display: grid;
+  padding: var(--book-pad);
+  border-radius: 12px;
+  background:
+    linear-gradient(150deg, rgba(255, 220, 160, 0.1), transparent 30%),
+    linear-gradient(135deg, #4a201c, #66291f 38%, #3b1a15 76%, #24100c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 170, 0.16),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.4),
+    var(--paper-shadow);
+  perspective: 2600px;
+}
+
+.book::before {
+  content: "";
+  position: absolute;
+  top: var(--book-pad);
+  bottom: var(--book-pad);
+  left: 50%;
+  z-index: 4;
+  width: 30px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(48, 26, 12, 0.22) 32%, rgba(24, 10, 4, 0.4) 50%, rgba(48, 26, 12, 0.22) 68%, transparent);
+  pointer-events: none;
+}
+
+.spread {
+  grid-area: 1 / 1;
+  display: none;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 620px;
+}
+
+.spread.is-active,
+.spread[class*="turn-"] {
+  display: grid;
+}
+
+.page {
+  position: relative;
+  min-width: 0;
+  padding: clamp(24px, 3vw, 44px) clamp(22px, 3.2vw, 48px) clamp(40px, 4vw, 56px);
+  background:
+    radial-gradient(140% 80% at 50% -20%, rgba(255, 252, 244, 0.5), transparent 60%),
+    var(--paper);
+}
+
+.page.left {
+  border-radius: 5px 1px 1px 5px;
+  box-shadow: inset -18px 0 34px -16px rgba(86, 56, 28, 0.3);
+}
+
+.page.right {
+  border-radius: 1px 5px 5px 1px;
+  box-shadow: inset 18px 0 34px -16px rgba(86, 56, 28, 0.3);
+}
+
+/* 바깥 모서리의 종이 단면(여러 장 겹친 느낌) */
+.page.left::after,
+.page.right::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 7px;
+  pointer-events: none;
+}
+
+.page.left::after {
+  left: 0;
+  border-radius: 5px 0 0 5px;
+  background: repeating-linear-gradient(90deg, rgba(120, 90, 52, 0.14) 0 1px, transparent 1px 3px);
+}
+
+.page.right::after {
+  right: 0;
+  border-radius: 0 5px 5px 0;
+  background: repeating-linear-gradient(90deg, transparent 0 2px, rgba(120, 90, 52, 0.14) 2px 3px);
+}
+
+/* ── 페이지 턴: 진짜 낱장이 넘어가는 구조 ──
+   다음 장: 현재 오른쪽 페이지(낱장 앞면)가 책등을 축으로 0→-90°로 들리고,
+   정확히 모서리에 선 순간 다음 장 왼쪽 페이지(낱장 뒷면)가 90→0°로 내려앉는다.
+   그 아래에서는 다음 장 오른쪽 페이지가 그림자와 함께 드러난다. */
+
+@media (min-width: 981px) {
+  .spread.turn-out-next .page.left { z-index: 3; }
+  .spread.turn-in-next .page.right {
+    z-index: 1;
+    animation: revealNext var(--turn-ms) both;
+  }
+
+  .spread.turn-out-next .page.right {
+    z-index: 7;
+    transform-origin: left center;
+    backface-visibility: hidden;
+    will-change: transform;
+    animation: leafFrontNext var(--turn-ms) both;
+  }
+
+  .spread.turn-in-next .page.left {
+    z-index: 5;
+    transform-origin: right center;
+    backface-visibility: hidden;
+    will-change: transform;
+    animation: leafBackNext var(--turn-ms) both;
+  }
+
+  .spread.turn-out-prev .page.right { z-index: 3; }
+  .spread.turn-in-prev .page.left {
+    z-index: 1;
+    animation: revealPrev var(--turn-ms) both;
+  }
+
+  .spread.turn-out-prev .page.left {
+    z-index: 7;
+    transform-origin: right center;
+    backface-visibility: hidden;
+    will-change: transform;
+    animation: leafFrontPrev var(--turn-ms) both;
+  }
+
+  .spread.turn-in-prev .page.right {
+    z-index: 5;
+    transform-origin: left center;
+    backface-visibility: hidden;
+    will-change: transform;
+    animation: leafBackPrev var(--turn-ms) both;
+  }
+}
+
+@keyframes leafFrontNext {
+  0% { transform: perspective(2400px) rotateY(0deg); filter: brightness(1); animation-timing-function: cubic-bezier(0.58, 0.04, 0.82, 0.47); }
+  49.8% { opacity: 1; }
+  50%, 100% { transform: perspective(2400px) rotateY(-90deg); filter: brightness(0.8); opacity: 0; }
+}
+
+@keyframes leafBackNext {
+  0%, 49.8% { transform: perspective(2400px) rotateY(90deg); filter: brightness(0.8); opacity: 0; }
+  50% { transform: perspective(2400px) rotateY(90deg); filter: brightness(0.8); opacity: 1; animation-timing-function: cubic-bezier(0.16, 0.5, 0.28, 1); }
+  100% { transform: perspective(2400px) rotateY(0deg) translateZ(0.4px); filter: brightness(1); }
+}
+
+@keyframes leafFrontPrev {
+  0% { transform: perspective(2400px) rotateY(0deg); filter: brightness(1); animation-timing-function: cubic-bezier(0.58, 0.04, 0.82, 0.47); }
+  49.8% { opacity: 1; }
+  50%, 100% { transform: perspective(2400px) rotateY(90deg); filter: brightness(0.8); opacity: 0; }
+}
+
+@keyframes leafBackPrev {
+  0%, 49.8% { transform: perspective(2400px) rotateY(-90deg); filter: brightness(0.8); opacity: 0; }
+  50% { transform: perspective(2400px) rotateY(-90deg); filter: brightness(0.8); opacity: 1; animation-timing-function: cubic-bezier(0.16, 0.5, 0.28, 1); }
+  100% { transform: perspective(2400px) rotateY(0deg) translateZ(0.4px); filter: brightness(1); }
+}
+
+@keyframes revealNext {
+  0% { box-shadow: inset 150px 0 120px -40px rgba(56, 34, 16, 0.4); }
+  55% { box-shadow: inset 70px 0 80px -30px rgba(56, 34, 16, 0.24); }
+  100% { box-shadow: inset 18px 0 34px -16px rgba(86, 56, 28, 0.3); }
+}
+
+@keyframes revealPrev {
+  0% { box-shadow: inset -150px 0 120px -40px rgba(56, 34, 16, 0.4); }
+  55% { box-shadow: inset -70px 0 80px -30px rgba(56, 34, 16, 0.24); }
+  100% { box-shadow: inset -18px 0 34px -16px rgba(86, 56, 28, 0.3); }
+}
+
+.page-number {
+  position: absolute;
+  bottom: 18px;
+  color: rgba(110, 88, 60, 0.55);
+  font-family: var(--ui-font);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+}
+
+.left .page-number { left: 38px; }
+.right .page-number { right: 38px; }

@@ -1,0 +1,254 @@
+/* intro.css — 시작 화면: 책이 펼쳐지며 본문으로 들어가는 장면 */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(1000px 660px at 50% 28%, rgba(190, 130, 64, 0.16), transparent 60%),
+    linear-gradient(160deg, #150f0c, #341a15 58%, #100b09);
+  color: var(--cream);
+  transition: opacity 720ms ease, visibility 720ms ease;
+}
+
+.intro.is-done {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro:not(.is-done) + .app {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-inner {
+  display: grid;
+  justify-items: center;
+  gap: 30px;
+  text-align: center;
+  perspective: 1500px;
+}
+
+.intro-book {
+  position: relative;
+  width: clamp(250px, 26vw, 360px);
+  aspect-ratio: 0.71;
+  transform-style: preserve-3d;
+  transform: translateY(34px) rotateX(24deg) rotateZ(-5deg) scale(0.9);
+  filter: drop-shadow(0 50px 60px rgba(0, 0, 0, 0.55));
+}
+
+.intro.is-playing .intro-book {
+  animation: introCam 3100ms cubic-bezier(0.3, 0.55, 0.25, 1) both;
+}
+
+.intro-back {
+  position: absolute;
+  inset: -3px -7px -8px -2px;
+  border-radius: 5px 12px 12px 5px;
+  background: linear-gradient(140deg, #71251f, #471613 60%, #310f0c);
+  transform: translateZ(-26px);
+}
+
+.intro-block {
+  position: absolute;
+  inset: 4px 2px 6px 7px;
+  border-radius: 2px 9px 9px 2px;
+  background: linear-gradient(90deg, #d4bf92, #f4e8c8 12%, #f8edce 84%, #cab388);
+  transform: translateZ(-13px);
+}
+
+.intro-block::before {
+  content: "二〇二六 · 中國";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(124, 94, 52, 0.5);
+  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+  letter-spacing: 0.4em;
+  writing-mode: vertical-rl;
+}
+
+.intro-block::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: 0;
+  width: 9px;
+  border-radius: 0 9px 9px 0;
+  background: repeating-linear-gradient(180deg, #f0e3bf 0 2px, #c9b186 2px 3px);
+}
+
+.intro-page {
+  position: absolute;
+  inset: 4px 2px 6px 7px;
+  border-radius: 2px 9px 9px 2px;
+  background: linear-gradient(100deg, #f9eed2, #ecdcb2);
+  transform-origin: left center;
+  transform: translateZ(-11px);
+  backface-visibility: hidden;
+}
+
+.intro.is-playing .intro-page.p1 { animation: leafFlutter 1050ms cubic-bezier(0.55, 0.08, 0.3, 1) 1500ms both; --flip: -144deg; }
+.intro.is-playing .intro-page.p2 { animation: leafFlutter 1000ms cubic-bezier(0.55, 0.08, 0.3, 1) 1640ms both; --flip: -137deg; }
+.intro.is-playing .intro-page.p3 { animation: leafFlutter 950ms cubic-bezier(0.55, 0.08, 0.3, 1) 1780ms both; --flip: -130deg; }
+
+@keyframes leafFlutter {
+  to { transform: translateZ(-11px) rotateY(var(--flip)); }
+}
+
+.intro-cover {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.intro.is-playing .intro-cover {
+  animation: coverOpen 1900ms cubic-bezier(0.66, 0.02, 0.26, 1) 520ms both;
+}
+
+@keyframes coverOpen {
+  0% { transform: rotateY(0deg); }
+  86% { transform: rotateY(-153deg); }
+  100% { transform: rotateY(-149deg); }
+}
+
+.cover-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px 10px 10px 4px;
+  backface-visibility: hidden;
+}
+
+.cover-face.front {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 14% 12%;
+  background:
+    linear-gradient(150deg, rgba(255, 230, 180, 0.12), transparent 38%),
+    linear-gradient(145deg, #ab3c32 0%, #7c241d 56%, #55130e);
+  border: 1px solid rgba(216, 168, 90, 0.45);
+  box-shadow: inset 0 0 60px rgba(35, 8, 5, 0.45);
+}
+
+.cover-face.front::before {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border: 1px solid rgba(230, 190, 120, 0.5);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.cover-face.back {
+  transform: rotateY(180deg);
+  background: linear-gradient(120deg, #8c2a22, #5c1712);
+  border: 1px solid rgba(216, 168, 90, 0.3);
+}
+
+.cover-year {
+  color: rgba(233, 196, 116, 0.85);
+  font-family: var(--ui-font);
+  font-size: 0.82rem;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+}
+
+.cover-title {
+  color: #e9c474;
+  font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.cover-sub {
+  color: rgba(244, 228, 193, 0.78);
+  font-size: 0.88rem;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+}
+
+.cover-seal {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: 14px;
+  border-radius: 7px;
+  color: #f8eed6;
+  background: linear-gradient(150deg, #c64f3a, #94291d);
+  box-shadow: inset 0 0 0 1.5px rgba(248, 238, 214, 0.4);
+  font-size: 1.05rem;
+  transform: rotate(-4deg);
+}
+
+@keyframes introCam {
+  0% { transform: translateY(34px) rotateX(24deg) rotateZ(-5deg) scale(0.9); }
+  36% { transform: translateY(8px) rotateX(11deg) rotateZ(-1deg) scale(1); }
+  70% { transform: translateY(0) rotateX(6deg) rotateZ(0deg) scale(1.05); }
+  100% { transform: translateY(-10px) rotateX(3deg) rotateZ(0deg) scale(1.28); }
+}
+
+.intro-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.intro-copy {
+  margin: -18px 0 0;
+  color: rgba(243, 233, 210, 0.66);
+  font-family: var(--ui-font);
+  font-size: 0.92rem;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+}
+
+.intro.is-playing .intro-title,
+.intro.is-playing .intro-copy,
+.intro.is-playing .intro-skip {
+  animation:
+    fadeUp 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 1400ms both,
+    textOut 500ms ease 2650ms forwards;
+}
+
+.intro.is-playing .intro-copy { animation-delay: 1550ms, 2650ms; }
+.intro.is-playing .intro-skip { animation-delay: 1750ms, 2650ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 마지막 줌 구간에서 책과 겹치지 않게 텍스트를 먼저 거둔다 */
+@keyframes textOut {
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+.intro-skip {
+  border: 1px solid rgba(233, 196, 116, 0.5);
+  border-radius: 999px;
+  padding: 10px 22px;
+  color: var(--cream);
+  background: rgba(0, 0, 0, 0.22);
+  font-family: var(--ui-font);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.intro-skip:hover {
+  background: rgba(233, 196, 116, 0.16);
+  border-color: rgba(233, 196, 116, 0.8);
+}

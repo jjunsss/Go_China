@@ -1,0 +1,119 @@
+/* base.css — 폰트, 디자인 토큰, 리셋, 전역 배경 */
+
+@font-face {
+  font-family: "Gowun Batang";
+  src: url("../fonts/GowunBatang-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gowun Batang";
+  src: url("../fonts/GowunBatang-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --ink: #2b2118;
+  --ink-soft: #5d5042;
+  --ink-faint: #8a7a66;
+  --paper: #faf3e2;
+  --paper-deep: #f0e2c4;
+  --line: rgba(106, 84, 56, 0.16);
+  --cinnabar: #a8352a;
+  --cinnabar-deep: #7e241d;
+  --gold: #b9842e;
+  --gold-soft: rgba(185, 132, 46, 0.36);
+  --cream: #f3e9d2;
+  --book-pad: clamp(10px, 1.4vw, 18px);
+  --turn-ms: 920ms;
+  --paper-shadow: 0 30px 80px rgba(10, 6, 4, 0.5);
+  --small-shadow: 0 10px 26px rgba(24, 16, 10, 0.14);
+  --book-font: "Gowun Batang", "Noto Serif KR", Batang, serif;
+  --ui-font: Pretendard, "Noto Sans KR", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--book-font);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 560px at 50% -10%, rgba(201, 150, 80, 0.15), transparent 62%),
+    radial-gradient(1000px 800px at 102% 112%, rgba(140, 44, 34, 0.22), transparent 58%),
+    radial-gradient(900px 720px at -8% 108%, rgba(31, 56, 53, 0.28), transparent 60%),
+    linear-gradient(168deg, #16100d, #281712 52%, #120d0a);
+  font-family: var(--book-font);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 50% 8%, transparent 55%, rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.38;
+  cursor: default;
+  pointer-events: none;
+}
+
+a {
+  color: #155f80;
+  text-underline-offset: 3px;
+}
+
+.pill,
+.tab,
+.video-caption,
+.source-item,
+.map-legend,
+.leaflet-container {
+  font-family: var(--ui-font);
+}
+
+.skip-link {
+  position: fixed;
+  left: 14px;
+  top: 14px;
+  z-index: 50;
+  padding: 8px 12px;
+  color: #fff;
+  background: #181210;
+  border-radius: 4px;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

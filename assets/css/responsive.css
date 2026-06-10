@@ -1,0 +1,155 @@
+/* responsive.css — 반응형(모바일 페이지 전환 포함) + 모션 최소화 설정 */
+
+@media (max-width: 980px) {
+  .spread {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .book::before {
+    display: none;
+  }
+
+  .page.left,
+  .page.right {
+    border-radius: 5px;
+    box-shadow: none;
+  }
+
+  .page.left::after,
+  .page.right::after {
+    display: none;
+  }
+
+  .page.right {
+    border-top: 1px dashed rgba(106, 84, 56, 0.25);
+  }
+
+  .page-number {
+    display: none;
+  }
+
+  /* 모바일: 세로로 쌓인 페이지에는 3D 낱장 대신 슬라이드 크로스페이드 */
+  .spread.turn-out-next,
+  .spread.turn-out-prev {
+    position: absolute;
+    inset: var(--book-pad);
+    z-index: 4;
+    animation: spreadOutM 460ms ease both;
+  }
+
+  .spread.turn-out-next { --dx: -22px; }
+  .spread.turn-out-prev { --dx: 22px; }
+  .spread.turn-in-next { --dx: 26px; }
+  .spread.turn-in-prev { --dx: -26px; }
+
+  .spread.turn-in-next,
+  .spread.turn-in-prev {
+    animation: spreadInM 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes spreadOutM {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(var(--dx)); }
+}
+
+@keyframes spreadInM {
+  from { opacity: 0; transform: translateX(var(--dx)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: 14px 10px calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .intro {
+    padding: 18px;
+  }
+
+  .intro-book {
+    width: min(216px, 56vw);
+  }
+
+  .intro-title {
+    font-size: clamp(1.15rem, 6vw, 1.5rem);
+  }
+
+  .intro-copy {
+    font-size: 0.84rem;
+  }
+
+  .book-header {
+    gap: 13px;
+  }
+
+  .book-header h1 {
+    font-size: clamp(1.7rem, 8.5vw, 2.4rem);
+  }
+
+  .header-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+
+  .book-controls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tab {
+    min-height: 42px;
+    padding: 9px 13px;
+  }
+
+  .book {
+    border-radius: 9px;
+  }
+
+  .stamp-grid,
+  .note-grid.two,
+  .prep-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 22px 18px 30px;
+  }
+
+  .page h2 {
+    font-size: clamp(1.4rem, 6.4vw, 1.8rem);
+  }
+
+  .lede {
+    font-size: 0.95rem;
+  }
+
+  .route-point strong {
+    font-size: 1.4rem;
+  }
+
+  .progress-wrap {
+    font-size: 0.78rem;
+  }
+
+  .map-panel {
+    min-height: 340px;
+  }
+
+  .map-legend {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
