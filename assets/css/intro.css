@@ -39,7 +39,7 @@
   aspect-ratio: 0.71;
   transform-style: preserve-3d;
   transform: translateY(34px) rotateX(24deg) rotateZ(-5deg) scale(0.9);
-  filter: drop-shadow(0 50px 60px rgba(0, 0, 0, 0.55));
+  /* filter는 grouping property라 preserve-3d를 무효화한다 — 그림자는 .intro-back이 담당 */
 }
 
 .intro.is-playing .intro-book {
@@ -52,6 +52,7 @@
   border-radius: 5px 12px 12px 5px;
   background: linear-gradient(140deg, #71251f, #471613 60%, #310f0c);
   transform: translateZ(-26px);
+  box-shadow: 0 50px 60px rgba(0, 0, 0, 0.55);
 }
 
 .intro-block {
@@ -89,18 +90,20 @@
   position: absolute;
   inset: 4px 2px 6px 7px;
   border-radius: 2px 9px 9px 2px;
+  /* 무지 페이지라 뒷면도 그대로 노출 — 넘어간 뒤 펼쳐진 표지 위에 얹힌 모습이 된다 */
   background: linear-gradient(100deg, #f9eed2, #ecdcb2);
   transform-origin: left center;
   transform: translateZ(-11px);
-  backface-visibility: hidden;
 }
 
-.intro.is-playing .intro-page.p1 { animation: leafFlutter 1050ms cubic-bezier(0.55, 0.08, 0.3, 1) 1500ms both; --flip: -144deg; }
-.intro.is-playing .intro-page.p2 { animation: leafFlutter 1000ms cubic-bezier(0.55, 0.08, 0.3, 1) 1640ms both; --flip: -137deg; }
-.intro.is-playing .intro-page.p3 { animation: leafFlutter 950ms cubic-bezier(0.55, 0.08, 0.3, 1) 1780ms both; --flip: -130deg; }
+.intro.is-playing .intro-page.p1 { animation: leafFlutter 1050ms cubic-bezier(0.55, 0.08, 0.3, 1) 1500ms both; --flip: -144deg; --landz: 4px; }
+.intro.is-playing .intro-page.p2 { animation: leafFlutter 1000ms cubic-bezier(0.55, 0.08, 0.3, 1) 1640ms both; --flip: -137deg; --landz: 6px; }
+.intro.is-playing .intro-page.p3 { animation: leafFlutter 950ms cubic-bezier(0.55, 0.08, 0.3, 1) 1780ms both; --flip: -130deg; --landz: 8px; }
 
+/* 시작은 표지 아래(-11px), 넘어간 뒤에는 펼쳐진 표지 위(+landz)에 얹힌다 */
 @keyframes leafFlutter {
-  to { transform: translateZ(-11px) rotateY(var(--flip)); }
+  from { transform: translateZ(-11px) rotateY(0deg); }
+  to { transform: translateZ(var(--landz)) rotateY(var(--flip)); }
 }
 
 .intro-cover {
