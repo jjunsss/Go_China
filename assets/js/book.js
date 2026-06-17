@@ -2,17 +2,19 @@
 
 window.GoChina = window.GoChina || {};
 
-GoChina.createBook = ({ config, onSpreadShown }) => {
+GoChina.createBook = ({ config, onSpreadShown, onSpreadSettled }) => {
   const spreads = [...document.querySelectorAll(".spread")];
   const tabs = [...document.querySelectorAll(".tab")];
   const tabsContainer = document.querySelector(".page-tabs");
   const book = document.getElementById("book");
   const progressLabel = document.getElementById("progressLabel");
   const progressFill = document.getElementById("progressFill");
+  const backToIndex = document.getElementById("backToIndex");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const { slugs, titles, turnDuration } = config;
   let current = 0;
   let turning = false;
+  let pendingTarget = null;
 
   // 마크업의 hidden 속성은 JS 미동작 대비용. 이후에는 클래스(visibility/display)로 제어한다.
   spreads.forEach((spread) => spread.removeAttribute("hidden"));
@@ -21,7 +23,29 @@ GoChina.createBook = ({ config, onSpreadShown }) => {
     const tab = tabs[current];
     if (!tab || !tabsContainer) return;
     const target = tab.offsetLeft - (tabsContainer.clientWidth - tab.offsetWidth) / 2;
-    tabsContainer.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+    tabsContainer.scrollTo({ left: Math.max(0, target), behavior: reduceMotion.matches ? "auto" : "smooth" });
+  };
+
+  const setNavBusy = (busy) => {
+    tabs.forEach((tab) => tab.setAttribute("aria-disabled", busy ? "true" : "false"));
+    if (backToIndex) backToIndex.setAttribute("aria-disabled", busy ? "true" : "false");
+  };
+
+  const readTimeMs = (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return 0;
+    return trimmed.endsWith("ms") ? parseFloat(trimmed) : parseFloat(trimmed) * 1000;
+  };
+
+  const longestAnimationMs = (spread) => {
+    const elements = [spread, ...spread.querySelectorAll(".page")];
+    const durations = elements.flatMap((element) => {
+      const styles = window.getComputedStyle(element);
+      const animationDurations = styles.animationDuration.split(",").map(readTimeMs);
+      const animationDelays = styles.animationDelay.split(",").map(readTimeMs);
+      return animationDurations.map((duration, index) => duration + (animationDelays[index] || 0));
+    });
+    return Math.max(turnDuration, ...durations, 0);
   };
 
   const updateChrome = () => {
@@ -41,7 +65,10 @@ GoChina.createBook = ({ config, onSpreadShown }) => {
   const scrollBookIntoView = () => {
     const top = book.getBoundingClientRect().top;
     if (top < -8) {
-      window.scrollTo({ top: window.scrollY + top - 72, behavior: "smooth" });
+      window.scrollTo({
+        top: window.scrollY + top - 72,
+        behavior: reduceMotion.matches ? "auto" : "smooth"
+      });
     }
   };
 
@@ -54,11 +81,16 @@ GoChina.createBook = ({ config, onSpreadShown }) => {
     });
     updateChrome();
     if (onSpreadShown) onSpreadShown(spreads[current]);
+    if (onSpreadSettled) onSpreadSettled(spreads[current]);
   };
 
   const showSpread = (index, animate = true) => {
     const target = Math.max(0, Math.min(index, spreads.length - 1));
-    if (target === current || turning) return;
+    if (turning) {
+      if (target !== current) pendingTarget = target;
+      return;
+    }
+    if (target === current) return;
 
     if (!animate || reduceMotion.matches) {
       setSpread(target);
@@ -80,13 +112,41 @@ GoChina.createBook = ({ config, onSpreadShown }) => {
     updateChrome();
     if (onSpreadShown) onSpreadShown(inSpread);
 
-    window.setTimeout(() => {
+    setNavBusy(true);
+
+    let settled = false;
+    let fallbackTimer = 0;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(fallbackTimer);
+      inSpread.removeEventListener("animationend", handleAnimationEnd);
       outSpread.classList.remove(`turn-out-${direction}`, "is-active");
       outSpread.setAttribute("aria-hidden", "true");
       inSpread.classList.remove(`turn-in-${direction}`);
       book.classList.remove("is-turning-next", "is-turning-prev");
       turning = false;
-    }, turnDuration);
+      setNavBusy(false);
+      if (onSpreadSettled) onSpreadSettled(inSpread);
+
+      const nextTarget = pendingTarget;
+      pendingTarget = null;
+      if (nextTarget !== null && nextTarget !== current) {
+        showSpread(nextTarget);
+      }
+    };
+
+    const finishAnimations = new Set([
+      `leafBack${direction === "next" ? "Next" : "Prev"}`,
+      `reveal${direction === "next" ? "Next" : "Prev"}`,
+      "spreadInM"
+    ]);
+    const handleAnimationEnd = (event) => {
+      if (finishAnimations.has(event.animationName)) settle();
+    };
+
+    inSpread.addEventListener("animationend", handleAnimationEnd);
+    fallbackTimer = window.setTimeout(settle, longestAnimationMs(inSpread) + 140);
   };
 
   const bindEvents = () => {
@@ -98,9 +158,12 @@ GoChina.createBook = ({ config, onSpreadShown }) => {
       button.addEventListener("click", () => showSpread(Number(button.dataset.jump)));
     });
 
-    document.getElementById("backToIndex").addEventListener("click", () => showSpread(0));
+    if (backToIndex) backToIndex.addEventListener("click", () => showSpread(0));
 
     document.addEventListener("keydown", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const interactiveTarget = target && target.closest("input, textarea, select, [contenteditable='true'], button, a, iframe, .map-wrap");
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || interactiveTarget) return;
       if (event.key === "ArrowLeft") showSpread(current - 1);
       if (event.key === "ArrowRight") showSpread(current + 1);
     });

@@ -11,7 +11,7 @@
     radial-gradient(1000px 660px at 50% 28%, rgba(190, 130, 64, 0.16), transparent 60%),
     linear-gradient(160deg, #150f0c, #341a15 58%, #100b09);
   color: var(--cream);
-  transition: opacity 720ms ease, visibility 720ms ease;
+  transition: opacity 860ms var(--motion-soft), visibility 860ms var(--motion-soft);
 }
 
 .intro.is-done {
@@ -43,7 +43,7 @@
 }
 
 .intro.is-playing .intro-book {
-  animation: introCam 3100ms cubic-bezier(0.3, 0.55, 0.25, 1) both;
+  animation: introCam 3300ms var(--motion-soft) both;
 }
 
 .intro-back {
@@ -96,9 +96,9 @@
   transform: translateZ(-11px);
 }
 
-.intro.is-playing .intro-page.p1 { animation: leafFlutter 1050ms cubic-bezier(0.55, 0.08, 0.3, 1) 1500ms both; --flip: -144deg; --landz: 4px; }
-.intro.is-playing .intro-page.p2 { animation: leafFlutter 1000ms cubic-bezier(0.55, 0.08, 0.3, 1) 1640ms both; --flip: -137deg; --landz: 6px; }
-.intro.is-playing .intro-page.p3 { animation: leafFlutter 950ms cubic-bezier(0.55, 0.08, 0.3, 1) 1780ms both; --flip: -130deg; --landz: 8px; }
+.intro.is-playing .intro-page.p1 { animation: leafFlutter 1280ms var(--motion-turn-in) 1460ms both; --flip: -136deg; --landz: 4px; }
+.intro.is-playing .intro-page.p2 { animation: leafFlutter 1220ms var(--motion-turn-in) 1600ms both; --flip: -130deg; --landz: 6px; }
+.intro.is-playing .intro-page.p3 { animation: leafFlutter 1160ms var(--motion-turn-in) 1740ms both; --flip: -124deg; --landz: 8px; }
 
 /* 시작은 표지 아래(-11px), 넘어간 뒤에는 펼쳐진 표지 위(+landz)에 얹힌다 */
 @keyframes leafFlutter {
@@ -114,13 +114,13 @@
 }
 
 .intro.is-playing .intro-cover {
-  animation: coverOpen 1900ms cubic-bezier(0.66, 0.02, 0.26, 1) 520ms both;
+  animation: coverOpen 2140ms var(--motion-turn-out) 520ms both;
 }
 
 @keyframes coverOpen {
   0% { transform: rotateY(0deg); }
-  86% { transform: rotateY(-153deg); }
-  100% { transform: rotateY(-149deg); }
+  92% { transform: rotateY(-148deg); }
+  100% { transform: rotateY(-148deg); }
 }
 
 .cover-face {
@@ -198,8 +198,8 @@
 @keyframes introCam {
   0% { transform: translateY(34px) rotateX(24deg) rotateZ(-5deg) scale(0.9); }
   36% { transform: translateY(8px) rotateX(11deg) rotateZ(-1deg) scale(1); }
-  70% { transform: translateY(0) rotateX(6deg) rotateZ(0deg) scale(1.05); }
-  100% { transform: translateY(-10px) rotateX(3deg) rotateZ(0deg) scale(1.28); }
+  70% { transform: translateY(0) rotateX(6deg) rotateZ(0deg) scale(1.04); }
+  100% { transform: translateY(-4px) rotateX(3deg) rotateZ(0deg) scale(1.16); }
 }
 
 .intro-title {
@@ -222,21 +222,21 @@
 .intro.is-playing .intro-copy,
 .intro.is-playing .intro-skip {
   animation:
-    fadeUp 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 1400ms both,
-    textOut 500ms ease 2650ms forwards;
+    fadeUp 980ms var(--motion-soft) 1400ms both,
+    textOut 680ms var(--motion-quiet) 2650ms forwards;
 }
 
 .intro.is-playing .intro-copy { animation-delay: 1550ms, 2650ms; }
 .intro.is-playing .intro-skip { animation-delay: 1750ms, 2650ms; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* 마지막 줌 구간에서 책과 겹치지 않게 텍스트를 먼저 거둔다 */
 @keyframes textOut {
-  to { opacity: 0; transform: translateY(10px); }
+  to { opacity: 0; transform: translateY(6px); }
 }
 
 .intro-skip {
@@ -248,10 +248,14 @@
   font-family: var(--ui-font);
   font-size: 0.88rem;
   letter-spacing: 0.08em;
-  transition: background 180ms ease, border-color 180ms ease;
+  transition:
+    background 260ms var(--motion-soft),
+    border-color 260ms var(--motion-soft),
+    transform 260ms var(--motion-soft);
 }
 
 .intro-skip:hover {
   background: rgba(233, 196, 116, 0.16);
   border-color: rgba(233, 196, 116, 0.8);
+  transform: translateY(-1px);
 }

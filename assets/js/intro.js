@@ -5,6 +5,11 @@ window.GoChina = window.GoChina || {};
 GoChina.createIntro = ({ config, skipIntro }) => {
   const intro = document.getElementById("intro");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const skipButton = document.getElementById("skipIntro");
+  let playFrame = 0;
+  let playTimer = 0;
+  let hideTimer = 0;
+  let hidden = false;
 
   let introSeen = false;
   try {
@@ -12,6 +17,11 @@ GoChina.createIntro = ({ config, skipIntro }) => {
   } catch (error) { /* 시크릿 모드 등에서 localStorage 차단 시 무시 */ }
 
   const hide = () => {
+    if (hidden) return;
+    hidden = true;
+    window.cancelAnimationFrame(playFrame);
+    window.clearTimeout(playTimer);
+    window.clearTimeout(hideTimer);
     intro.classList.add("is-done");
     try {
       window.localStorage.setItem(config.introKey, "1");
@@ -23,14 +33,21 @@ GoChina.createIntro = ({ config, skipIntro }) => {
       hide();
       return;
     }
-    window.requestAnimationFrame(() => {
-      window.setTimeout(() => intro.classList.add("is-playing"), 120);
+    playFrame = window.requestAnimationFrame(() => {
+      playTimer = window.setTimeout(() => {
+        if (!hidden) intro.classList.add("is-playing");
+      }, 120);
     });
-    window.setTimeout(hide, config.introHoldMs);
+    hideTimer = window.setTimeout(hide, config.introHoldMs);
   };
 
-  document.getElementById("skipIntro").addEventListener("click", hide);
-  intro.addEventListener("click", hide);
+  if (skipButton) {
+    skipButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      hide();
+    }, { once: true });
+  }
+  intro.addEventListener("click", hide, { once: true });
 
   return { play, hide };
 };

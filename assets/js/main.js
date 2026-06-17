@@ -7,9 +7,9 @@
 
   const book = createBook({
     config,
-    onSpreadShown: (spread) => {
+    onSpreadSettled: (spread) => {
       if (spread.querySelector("#chongqingMap")) {
-        window.setTimeout(mapController.init, 150);
+        mapController.init();
       }
     }
   });

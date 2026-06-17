@@ -4,14 +4,26 @@ window.GoChina = window.GoChina || {};
 
 GoChina.createMapController = (spots) => {
   let ready = false;
+  let map = null;
+
+  const refresh = () => {
+    if (!map) return;
+    window.requestAnimationFrame(() => {
+      map.invalidateSize({ animate: false });
+    });
+  };
 
   const init = () => {
     const mapEl = document.getElementById("chongqingMap");
-    if (!mapEl || ready || !window.L) return;
+    if (!mapEl || !window.L) return;
+    if (ready) {
+      refresh();
+      return;
+    }
     ready = true;
 
     const touchDevice = window.matchMedia("(pointer: coarse)").matches;
-    const map = L.map(mapEl, {
+    map = L.map(mapEl, {
       scrollWheelZoom: false,
       zoomControl: true,
       dragging: !touchDevice
@@ -60,7 +72,7 @@ GoChina.createMapController = (spots) => {
 
       if (!window.matchMedia("(max-width: 720px)").matches) {
         marker.bindTooltip(spot.en, {
-          permanent: true,
+          permanent: false,
           direction: "top",
           offset: [0, -18],
           className: "map-tooltip"
@@ -69,8 +81,9 @@ GoChina.createMapController = (spots) => {
     });
 
     map.fitBounds(bounds, { padding: [24, 24] });
-    window.setTimeout(() => map.invalidateSize(), 120);
+    window.setTimeout(refresh, 120);
+    window.addEventListener("resize", () => window.setTimeout(refresh, 120), { passive: true });
   };
 
-  return { init };
+  return { init, refresh };
 };
