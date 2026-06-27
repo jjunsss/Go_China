@@ -165,7 +165,22 @@
     padding: 20px 14px 28px;
   }
 
-  .spread[data-title="충칭 지도"] .map-panel {
+  .spread[data-title="충칭 지도"] .map-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spread[data-title="충칭 지도"] .map-page .map-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .spread[data-title="충칭 지도"] .map-page .map-panel {
+    height: min(62vh, 520px);
+    min-height: 360px;
+  }
+
+  .spread[data-title="충칭 지도"] .page:not(.map-page) .map-panel {
     min-height: 280px;
   }
 
@@ -213,6 +228,10 @@
     padding: 6px 0;
     font-size: 0.82rem;
     line-height: 1.45;
+  }
+
+  .spread[data-title="충칭 지도"] .compact-city-notes {
+    margin-top: 8px;
   }
 
   .spread[data-title="비상/출처"] .source-list {

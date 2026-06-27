@@ -853,14 +853,20 @@
         </article>
 
         <article class="spread" data-title="충칭 지도" hidden>
-          <section class="page left">
+          <section class="page left map-page">
             <p class="eyebrow">Chongqing Map</p>
             <h2>충칭 3D 핵심 지점</h2>
             <div class="map-wrap">
               <div id="chongqingMap" class="map-panel" aria-label="충칭 주요 지점 지도"></div>
               <button class="map-lock" type="button" id="mapLock" aria-pressed="false">지도 이동 켜기</button>
             </div>
-            <ul class="map-legend">
+            <span class="page-number">31</span>
+          </section>
+
+          <section class="page right">
+            <p class="eyebrow">3D City Notes</p>
+            <h2>지도 번호표</h2>
+            <ul class="map-legend map-directory">
               <li><i class="map-dot">1</i><span class="map-name"><strong>홍야동</strong><span>Hongyadong</span><small>검색명: 洪崖洞</small></span></li>
               <li><i class="map-dot">2</i><span class="map-name"><strong>해방비</strong><span>Jiefangbei</span><small>검색명: 解放碑</small></span></li>
               <li><i class="map-dot">3</i><span class="map-name"><strong>장강삭도 신화루 쪽</strong><span>Yangtze Cableway</span><small>검색명: 长江索道 / 新华路</small></span></li>
@@ -887,28 +893,10 @@
               <li><i class="map-dot">24</i><span class="map-name"><strong>비파산공원</strong><span>Pipa Mountain Park</span><small>검색명: 枇杷山公园</small></span></li>
               <li><i class="map-dot">25</i><span class="map-name"><strong>통원먼 성벽공원</strong><span>Tongyuan Gate Park</span><small>검색명: 通远门城墙遗址公园</small></span></li>
             </ul>
-            <span class="page-number">31</span>
-          </section>
-
-          <section class="page right">
-            <p class="eyebrow">3D City Notes</p>
-            <h2>3D 도시 노트</h2>
-            <div class="callout city-primer">
-              <strong>처음 가는 사람용 독법</strong>
-              충칭은 같은 건물의 1층, 11층, 22층이 각각 다른 도로와 이어질 수 있습니다. 지도 핀만 보지 말고 역 출구, 층수, 강 방향, 도로의 위아래를 함께 확인합니다.
-            </div>
-            <ul class="place-list city-notes">
-              <li><strong>홍야동</strong>은 절벽형 11층 상가와 야경이 핵심입니다. 해방비에서 가깝지만 밤에는 사람 흐름이 느려져 강변 촬영 지점까지 시간을 넉넉히 둡니다.</li>
-              <li><strong>해방비</strong>는 숙소·식사·쇼핑의 기준점입니다. 택시를 부를 때는 건물명보다 픽업 가능한 도로명이나 출구를 같이 확인합니다.</li>
-              <li><strong>장강삭도·차오톈먼</strong>은 강 위에서 보는 충칭 후보입니다. 삭도는 대기, 유람선은 날씨와 출항 시간을 먼저 확인합니다.</li>
-              <li><strong>리쯔바역</strong>은 CRT 2호선 열차가 건물을 통과하는 곳입니다. 사진은 역 안보다 전용 전망대 쪽이 초행자에게 쉽습니다.</li>
-              <li><strong>십팔제·룽먼하오</strong>는 계단과 언덕길이 많은 역사 거리입니다. 편한 신발, 보조배터리, 중국어 장소명을 먼저 챙기면 이동 스트레스가 줄어듭니다.</li>
-              <li><strong>대한민국 임시정부 구지 진열관</strong>은 해방비·십팔제 동선과 가까운 역사 관람지입니다. 운영 시간과 휴관일을 전날 확인합니다.</li>
-              <li><strong>남산일과수·래플스시티·WFC</strong>는 높은 곳에서 보는 전망 후보입니다. 흐린 날에는 전망대보다 강변 산책 쪽으로 바꿉니다.</li>
-              <li><strong>백상거·쿠이싱러우·츠치커우</strong>는 충칭의 층위, 주거지, 옛 거리 감각을 보는 후보입니다. 돌아갈 출구와 택시 픽업 지점을 미리 잡습니다.</li>
-              <li><strong>자오창커우·바이이루·관인차오</strong>는 밤 간식과 시장 분위기 후보입니다. 매운맛, 줄, 현금/QR 결제 실패 대비를 같이 봅니다.</li>
-              <li><strong>산성샹·샤하오리·어링·비파산</strong>은 덜 뻔한 로컬 산책 후보입니다. 사람이 적은 만큼 늦은 밤 단독 이동보다 낮-초저녁을 우선합니다.</li>
-              <li><strong>황줴핑·교통차관·베이창</strong>은 예술, 차, 카페를 보는 생활권 코스입니다. 사진보다 머무는 시간을 조금 잡아야 매력이 납니다.</li>
+            <ul class="place-list city-notes compact-city-notes">
+              <li><strong>읽는 법</strong>지도 핀만 보지 말고 역 출구, 층수, 강 방향, 도로의 위아래를 같이 확인합니다.</li>
+              <li><strong>전망 후보</strong>홍야동·남산일과수·래플스시티·WFC는 날씨가 흐리면 만족도가 크게 떨어질 수 있습니다.</li>
+              <li><strong>로컬 후보</strong>산성샹·샤하오리·비파산·황줴핑은 낮-초저녁 우선, 귀가 픽업 지점을 먼저 잡습니다.</li>
             </ul>
             <span class="page-number">32</span>
           </section>
