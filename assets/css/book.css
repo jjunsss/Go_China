@@ -35,6 +35,12 @@
   min-height: 620px;
 }
 
+@media (min-width: 981px) {
+  .spread {
+    min-height: 820px;
+  }
+}
+
 .spread.is-active,
 .spread[class*="turn-"] {
   display: grid;

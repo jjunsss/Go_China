@@ -114,6 +114,24 @@
     grid-template-columns: 1fr;
   }
 
+  .compact-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px 10px;
+  }
+
+  .compact-index .index-item {
+    padding: 4px 0;
+  }
+
+  .compact-index .index-item button {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .compact-index .index-item > span:last-child {
+    font-size: 0.68rem;
+  }
+
   .page {
     padding: 22px 18px 30px;
   }
@@ -140,6 +158,81 @@
 
   .map-legend {
     grid-template-columns: 1fr;
+  }
+
+  .spread[data-title="충칭 지도"] .page,
+  .spread[data-title="비상/출처"] .page {
+    padding: 20px 14px 28px;
+  }
+
+  .spread[data-title="충칭 지도"] .map-panel {
+    min-height: 280px;
+  }
+
+  .spread[data-title="충칭 지도"] .map-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px 8px;
+    margin-top: 8px;
+  }
+
+  .spread[data-title="충칭 지도"] .map-legend li {
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 5px;
+    padding: 4px 0;
+  }
+
+  .spread[data-title="충칭 지도"] .map-dot {
+    width: 18px;
+    height: 18px;
+    font-size: 0.6rem;
+  }
+
+  .spread[data-title="충칭 지도"] .map-name strong,
+  .spread[data-title="충칭 지도"] .map-name span,
+  .spread[data-title="충칭 지도"] .map-name small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .spread[data-title="충칭 지도"] .map-name strong {
+    font-size: 0.68rem;
+  }
+
+  .spread[data-title="충칭 지도"] .map-name span,
+  .spread[data-title="충칭 지도"] .map-name small {
+    font-size: 0.62rem;
+  }
+
+  .spread[data-title="충칭 지도"] .city-primer {
+    margin: 8px 0;
+    padding: 10px 12px;
+  }
+
+  .spread[data-title="충칭 지도"] .place-list.city-notes li {
+    padding: 6px 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .spread[data-title="비상/출처"] .source-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .spread[data-title="비상/출처"] .source-item {
+    padding: 6px 7px;
+    font-size: 0.7rem;
+  }
+
+  .spread[data-title="비상/출처"] .source-item a {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 0.66rem;
+    line-height: 1.25;
   }
 }
 
