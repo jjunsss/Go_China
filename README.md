@@ -2,6 +2,13 @@
 
 Shared checklist for the July 2026 Seoul, Chengdu, and Chongqing trip.
 
+Updated 2026-06-27 with expanded latest-info sections for entry, payment,
+offline downloads, Chengdu and Chongqing routing, Chongqing night views,
+activities, photo spots, night markets/markets, skyscraper viewpoints, the
+Korean Provisional Government site in Chongqing, local-feeling Chongqing side
+streets/parks/teahouses, and evidence-backed Chongqing representative foods.
+User review snippets are kept short and linked to their original pages.
+
 GitHub Pages URL after publishing:
 
 https://jjunsss.github.io/Go_China/
