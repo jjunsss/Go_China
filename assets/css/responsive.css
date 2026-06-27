@@ -234,6 +234,29 @@
     margin-top: 8px;
   }
 
+  .spread[data-title="야경 숙소 후보"] .lede {
+    margin-bottom: 12px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list {
+    gap: 7px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list li {
+    padding: 9px 10px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list strong {
+    font-size: 0.82rem;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list span,
+  .spread[data-title="야경 숙소 후보"] .note p,
+  .spread[data-title="야경 숙소 후보"] .hotel-notes li {
+    font-size: 0.78rem;
+    line-height: 1.42;
+  }
+
   .spread[data-title="비상/출처"] .source-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 5px;

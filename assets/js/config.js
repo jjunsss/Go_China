@@ -4,8 +4,8 @@ window.GoChina = window.GoChina || {};
 
 GoChina.config = {
   // 스프레드 순서와 1:1 대응. 새 스프레드를 추가하면 slugs/titles에 같이 추가한다.
-  slugs: ["index", "entry", "payment", "downloads", "packing", "chengdu", "chongqing", "night", "activity", "photo", "market", "local", "provisional", "food", "videos", "map", "emergency"],
-  titles: ["목차", "입국과 세관", "결제와 네트워크", "출국 전 다운로드", "필수 준비물", "청두 어디 갈지", "충칭 어디 갈지", "충칭 야경과 전망", "액티비티와 마천루", "사진 찍기 좋은 곳", "야시장과 시장", "로컬 숨은 장소", "대한민국 임시정부", "충칭 대표음식", "충칭 영상", "충칭 3D 지도와 도시 노트", "비상 연락과 출처"],
+  slugs: ["index", "entry", "payment", "downloads", "packing", "chengdu", "chongqing", "night", "activity", "photo", "market", "local", "lodging", "provisional", "food", "videos", "map", "emergency"],
+  titles: ["목차", "입국과 세관", "결제와 네트워크", "출국 전 다운로드", "필수 준비물", "청두 어디 갈지", "충칭 어디 갈지", "충칭 야경과 전망", "액티비티와 마천루", "사진 찍기 좋은 곳", "야시장과 시장", "로컬 숨은 장소", "야경 숙소 후보", "대한민국 임시정부", "충칭 대표음식", "충칭 영상", "충칭 3D 지도와 도시 노트", "비상 연락과 출처"],
   turnDuration: 1260,
   introHoldMs: 3600,
   introKey: "gc-intro-seen"

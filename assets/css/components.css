@@ -67,8 +67,18 @@
 
 @media (min-width: 901px) {
   .compact-index {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px 18px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px 14px;
+  }
+
+  .spread[data-title="목차"] .stamp-grid {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .spread[data-title="목차"] .stamp {
+    min-height: 78px;
+    padding: 11px 12px;
   }
 }
 
@@ -86,7 +96,8 @@
 }
 
 .compact-index .index-item button {
-  font-size: 0.86rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
 .index-item button {
@@ -417,6 +428,45 @@
   padding: 9px 0;
   font-size: 0.9rem;
   line-height: 1.55;
+}
+
+.hotel-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hotel-list li {
+  padding: 10px 12px;
+  border: 1px solid rgba(106, 84, 56, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 253, 246, 0.62);
+}
+
+.hotel-list strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #33271b;
+  font-size: 0.9rem;
+}
+
+.hotel-list span {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.48;
+}
+
+.hotel-callout {
+  margin: 12px 0 8px;
+}
+
+.hotel-notes li {
+  padding: 5px 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 /* 체크리스트 */
@@ -921,6 +971,46 @@
   .spread[data-title="로컬 숨은 장소"] .review-list.slim {
     margin-top: 8px;
     gap: 6px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .page {
+    padding: 26px 28px 42px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .lede {
+    margin-bottom: 12px;
+    font-size: 0.86rem;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list {
+    gap: 7px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list li {
+    padding: 8px 10px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list strong,
+  .spread[data-title="야경 숙소 후보"] .note strong {
+    font-size: 0.78rem;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-list span,
+  .spread[data-title="야경 숙소 후보"] .note p,
+  .spread[data-title="야경 숙소 후보"] .hotel-notes li {
+    font-size: 0.73rem;
+    line-height: 1.38;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .note {
+    padding: 9px 10px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .hotel-callout {
+    margin: 9px 0 6px;
+    padding: 10px 12px;
+    font-size: 0.76rem;
+    line-height: 1.42;
   }
 
   .spread[data-title="비상/출처"] .source-list {
