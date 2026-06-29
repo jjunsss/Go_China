@@ -7,8 +7,9 @@ offline downloads, Chengdu and Chongqing routing, Chongqing night views,
 activities, photo spots, night markets/markets, skyscraper viewpoints, the
 Korean Provisional Government site in Chongqing, local-feeling Chongqing side
 streets/parks/teahouses, three-person Chongqing night-view lodging candidates,
-and evidence-backed Chongqing representative foods. User review snippets are
-kept short and linked to their original pages.
+downloaded night-view reference photos for the lodging spread, and
+evidence-backed Chongqing representative foods. User review snippets are kept
+short and linked to their original pages.
 
 GitHub Pages URL after publishing:
 

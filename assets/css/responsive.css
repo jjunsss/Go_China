@@ -257,6 +257,27 @@
     line-height: 1.42;
   }
 
+  .spread[data-title="야경 숙소 후보"] .view-gallery {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .view-card img {
+    height: 156px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .view-card figcaption {
+    padding: 8px 9px 9px;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .view-card strong {
+    font-size: 0.82rem;
+  }
+
+  .spread[data-title="야경 숙소 후보"] .view-card span {
+    font-size: 0.76rem;
+  }
+
   .spread[data-title="비상/출처"] .source-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 5px;
