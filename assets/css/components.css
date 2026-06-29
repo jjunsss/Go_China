@@ -469,6 +469,43 @@
   line-height: 1.45;
 }
 
+.youtube-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.youtube-card {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid rgba(106, 84, 56, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 253, 246, 0.66);
+  color: inherit;
+  text-decoration: none;
+}
+
+.youtube-card strong {
+  color: #33271b;
+  font-size: 0.84rem;
+}
+
+.youtube-card span {
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.36;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-notes {
+  margin-top: 4px;
+}
+
 .view-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1075,24 +1112,70 @@
     line-height: 1.42;
   }
 
+  .spread[data-title="숙소 추가 후보"] .page {
+    padding: 26px 28px 42px;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .lede {
+    margin-bottom: 12px;
+    font-size: 0.86rem;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .hotel-list {
+    gap: 7px;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .hotel-list li {
+    padding: 8px 10px;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .hotel-list strong,
+  .spread[data-title="숙소 추가 후보"] .youtube-card strong {
+    font-size: 0.78rem;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .hotel-list span,
+  .spread[data-title="숙소 추가 후보"] .youtube-card span,
+  .spread[data-title="숙소 추가 후보"] .hotel-notes li {
+    font-size: 0.72rem;
+    line-height: 1.34;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .youtube-grid {
+    gap: 7px;
+    margin-bottom: 9px;
+  }
+
+  .spread[data-title="숙소 추가 후보"] .youtube-card {
+    padding: 9px 10px;
+  }
+
   .spread[data-title="비상/출처"] .source-list {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 5px;
-    margin-top: 8px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    margin-top: 6px;
   }
 
   .spread[data-title="비상/출처"] .source-item {
-    padding: 5px 7px;
-    font-size: 0.7rem;
+    padding: 4px 5px;
+    font-size: 0.62rem;
+  }
+
+  .spread[data-title="비상/출처"] .source-item strong {
+    overflow: hidden;
+    margin-bottom: 0;
+    font-size: 0.62rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .spread[data-title="비상/출처"] .source-item a {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    font-size: 0.66rem;
-    line-height: 1.25;
+    -webkit-line-clamp: 1;
+    font-size: 0.58rem;
+    line-height: 1.2;
   }
 }
 

@@ -4,8 +4,8 @@ window.GoChina = window.GoChina || {};
 
 GoChina.config = {
   // 스프레드 순서와 1:1 대응. 새 스프레드를 추가하면 slugs/titles에 같이 추가한다.
-  slugs: ["index", "entry", "payment", "downloads", "packing", "chengdu", "chongqing", "night", "activity", "photo", "market", "local", "lodging", "provisional", "food", "videos", "map", "emergency"],
-  titles: ["목차", "입국과 세관", "결제와 네트워크", "출국 전 다운로드", "필수 준비물", "청두 어디 갈지", "충칭 어디 갈지", "충칭 야경과 전망", "액티비티와 마천루", "사진 찍기 좋은 곳", "야시장과 시장", "로컬 숨은 장소", "야경 숙소 후보", "대한민국 임시정부", "충칭 대표음식", "충칭 영상", "충칭 3D 지도와 도시 노트", "비상 연락과 출처"],
+  slugs: ["index", "entry", "payment", "downloads", "packing", "chengdu", "chongqing", "night", "activity", "photo", "market", "local", "lodging", "lodging-more", "food", "videos", "map", "emergency"],
+  titles: ["목차", "입국과 세관", "결제와 네트워크", "출국 전 다운로드", "필수 준비물", "청두 어디 갈지", "충칭 어디 갈지", "충칭 야경과 전망", "액티비티와 마천루", "사진 찍기 좋은 곳", "야시장과 시장", "로컬 숨은 장소", "야경 숙소 후보", "숙소 추가 후보", "충칭 대표음식", "충칭 영상", "충칭 3D 지도와 도시 노트", "비상 연락과 출처"],
   turnDuration: 1260,
   introHoldMs: 3600,
   introKey: "gc-intro-seen"
@@ -20,7 +20,7 @@ GoChina.chongqingSpots = [
   { name: "백상거", en: "Baixiangju", cn: "白象居", lat: 29.5585282, lng: 106.5813482, note: "주거단지와 삭도 촬영 포인트" },
   { name: "룽먼하오 옛거리", en: "Longmenhao Old Street", cn: "龙门浩老街", lat: 29.5588249, lng: 106.5912051, note: "남안구 언덕형 역사 거리" },
   { name: "쿠이싱러우", en: "Kuixing Building", cn: "魁星楼", lat: 29.560258, lng: 106.573618, note: "1층과 22층 감각이 겹치는 포인트" },
-  { name: "대한민국 임시정부 구지 진열관", en: "Korean Provisional Government Site", cn: "韩国临时政府旧址陈列馆", lat: 29.555944, lng: 106.569389, note: "충칭 시기 임시정부 청사 관람" },
+  { name: "대한민국 임시정부 구지 진열관", en: "Korean Provisional Government Site", cn: "韩国临时政府旧址陈列馆", lat: 29.555944, lng: 106.569389, note: "충칭 시기 임시정부 청사" },
   { name: "츠치커우 고진", en: "Ciqikou Ancient Town", cn: "磁器口古镇", lat: 29.581204, lng: 106.456939, note: "옛 거리, 간식, 기념품 동선" },
   { name: "남산일과수 전망대", en: "Nanshan One Tree", cn: "南山一棵树", lat: 29.54258, lng: 106.58986, note: "유중반도와 두 강 야경 조망" },
   { name: "차오톈먼 부두", en: "Chaotianmen Wharf", cn: "朝天门码头", lat: 29.562987, lng: 106.588103, note: "양강 야간 유람선 승선 후보" },

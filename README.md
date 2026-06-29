@@ -4,12 +4,12 @@ Shared checklist for the July 2026 Seoul, Chengdu, and Chongqing trip.
 
 Updated 2026-06-27 with expanded latest-info sections for entry, payment,
 offline downloads, Chengdu and Chongqing routing, Chongqing night views,
-activities, photo spots, night markets/markets, skyscraper viewpoints, the
-Korean Provisional Government site in Chongqing, local-feeling Chongqing side
-streets/parks/teahouses, three-person Chongqing night-view lodging candidates,
-downloaded night-view reference photos for the lodging spread, and
-evidence-backed Chongqing representative foods. User review snippets are kept
-short and linked to their original pages.
+activities, photo spots, night markets/markets, skyscraper viewpoints,
+local-feeling Chongqing side streets/parks/teahouses, three-person Chongqing
+night-view lodging candidates, downloaded night-view reference photos, extra
+lodging candidates with YouTube checks, and evidence-backed Chongqing
+representative foods. User review snippets are kept short and linked to their
+original pages.
 
 GitHub Pages URL after publishing:
 
